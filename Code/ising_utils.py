@@ -4,6 +4,13 @@ import random
 from ipywidgets import interact, IntSlider
 import scipy.linalg as la
 
+
+# Logic for code below:
+# - the matrix _path_ is the adjacency matrix of a path graph
+# - the kronecker sum of offdi with itself is the grid graph (see https://en.wikipedia.org/wiki/Kronecker_product#Abstract_properties)
+# - code partly from https://stackoverflow.com/questions/16329403/how-can-you-make-an-adjacency-matrix-which-would-emulate-a-2d-grid
+# - other resource on creating lattice graphs: https://mathworld.wolfram.com/GraphCartesianProduct.html
+
 def lattice_connection_matrix(side: int, dim: int) -> np.ndarray:
     """
     Generates a lattice connection matrix for a given side length and dimension.
@@ -87,7 +94,7 @@ class SpinMarketModel:
         1. Randomly select a spin from the configuration.
         2. Calculate the probability of the spin being +1 using the local field
            and the temperature.
-        3. Flip the spin to +1 with the calculated probability, otherwise set it to -1.
+        3. Set the spin to +1 with the calculated probability, otherwise set it to -1.
 
         Note:
         - The Boltzmann constant is neglected as it has no physical meaning in this application.
@@ -108,7 +115,16 @@ class SpinMarketModel:
             else:
                 self.spins[i] = -1
     
-    def run_simulation(self, verbose=False):
+    def run_simulation(self, verbose: bool = False) -> list:
+        """
+        Run the Monte Carlo simulation using the Metropolis algorithm.
+
+        Parameters:
+        verbose (bool): If True, prints detailed information about the simulation progress.
+
+        Returns:
+        list: A list of numpy arrays representing the spin configuration at each step of the simulation.
+        """
         """Run the Monte Carlo simulation"""
         spin_series = []
         if verbose:
@@ -122,6 +138,20 @@ class SpinMarketModel:
         return spin_series
 
     def plot_magnetization(self, spin_series):
+        """
+        Plot the time series of magnetization.
+
+        This function takes a series of spin configurations and calculates the 
+        magnetization for each configuration. It then plots the magnetization 
+        as a function of Monte Carlo steps.
+
+        Args:
+            spin_series (list of np.ndarray): A list where each element is an 
+            array representing the spin configuration at a given Monte Carlo step.
+
+        Returns:
+            None
+        """
         """Plot the time series of magnetization"""
         magnetization_series = [np.sum(spin) for spin in spin_series]
         plt.figure(figsize=(10, 5))
@@ -133,9 +163,26 @@ class SpinMarketModel:
         plt.show()
     
     
-# need to update this class to use the general connection matrix function !!!
 class LatticeSpinMarketModel(SpinMarketModel):
-    def __init__(self, side=32, dim=2, J=1, alpha=4, T=1.5, steps=10000, local_field_func=None):
+    '''
+    A model representing a lattice spin market based on the Ising model.
+
+    Attributes:
+        dim (int): The dimensionality of the lattice.
+        size (int): The total number of spins in the lattice.
+        J (float): The ferromagnetic coupling constant.
+        alpha (float): The global anti-ferromagnetic coupling constant.
+        T (float): The temperature of the system.
+        steps (int): The number of Monte Carlo sweeps.
+        spins (np.ndarray): The array representing the spin states of the lattice.
+        local_field_func (callable): A function to calculate the local field.
+        connection_matrix (np.ndarray): The matrix representing the connections in the lattice.
+
+    Methods:
+        plot_lattice(spin_series, t=None, interactive=False):
+            Plots the 2D lattice at a given time step.
+    '''
+    def __init__(self, side: int = 32, dim: int = 2, J: float = 1, alpha: float = 4, T: float = 1.5, steps: int = 10000, local_field_func: callable = None):
         self.dim = dim
         self.size = side**self.dim
         self.J = J  # Ferromagnetic coupling
@@ -146,9 +193,20 @@ class LatticeSpinMarketModel(SpinMarketModel):
         self.local_field_func = local_field_func
         self.connection_matrix = lattice_connection_matrix(side=side, dim=self.dim)
 
-    def plot_lattice(self, spin_series, t=None, interactive=False):
+    def plot_lattice(self, spin_series: list, t: int = None, interactive: bool = False) -> None:
         """
-        Plots the 2D lattice at time t.
+        Plots the 2D lattice at a given time step.
+
+        Parameters:
+        spin_series (list or np.ndarray): A series of 2D arrays representing the spin states of the lattice over time.
+        t (int, optional): The time step to plot. If None, the last time step is plotted. Default is None.
+        interactive (bool, optional): If True, an interactive slider is provided to select the time step. Default is False.
+
+        Raises:
+        ValueError: If the lattice dimension is not 2D.
+
+        Returns:
+        None
         """
         if self.dim != 2:
             raise ValueError("This method is only implemented for 2D lattices")
