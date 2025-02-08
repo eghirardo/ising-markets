@@ -1,18 +1,8 @@
 \begin{thebibliography}{1}
 
-\bibitem{sample2023}
-John Doe.
-\newblock An example article.
-\newblock {\em Journal of Examples}, 1(1):1--10, 2023.
-
-\bibitem{sampleconference2023}
-Alice Johnson.
-\newblock An example conference paper.
-\newblock In {\em Proceedings of the Example Conference}, pages 100--110. Example Organization, 2023.
-
-\bibitem{samplebook2023}
-Jane Smith.
-\newblock {\em An Example Book}.
-\newblock Example Publisher, Example City, 2023.
+\bibitem{bornholdt}
+Stefan Bornholdt.
+\newblock Expectation bubbles in a spin model of markets: Intermittency from frustration across scales.
+\newblock {\em International Journal of Modern Physics C}, 12(05):667--674, 2001.
 
 \end{thebibliography}
