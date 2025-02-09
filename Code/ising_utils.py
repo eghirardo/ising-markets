@@ -52,10 +52,10 @@ class SpinMarketModel:
         Global anti-ferromagnetic coupling constant (default is 4).
     T : float
         Temperature of the system (default is 1.5).
-    steps : int
-        Number of Monte Carlo sweeps (default is 10000).
     spins : numpy.ndarray
         Array representing the spin states of the system.
+    spin_series : list
+        List of numpy arrays representing the spin configuration at each step.
     local_field_func : function
         Function to calculate the local field at a given spin.
     connection_matrix : numpy.ndarray
@@ -64,32 +64,32 @@ class SpinMarketModel:
     -------
     metropolis_step():
         Perform a single Metropolis update.
-    run_simulation(verbose=False):
+    run_simulation(verbose=False, steps=1000):
         Run the Monte Carlo simulation.
-    plot_magnetization(spin_series):
+    plot_magnetization():
         Plot the time series of magnetization.
     """
     def __init__(self,
                  size: int = 1024,
-                 spins: np.ndarray = None,
+                 spin_series: list = None,
                  J: float = 1,
                  alpha: float = 4,
                  T: float = 1.5,
-                 steps: int = 10000,
                  local_field_func: callable = None,
                  connection_matrix: np.ndarray = None):
         self.size = size
         self.J = J  # Ferromagnetic coupling
         self.alpha = alpha  # Global anti-ferromagnetic coupling
         self.T = T  # Temperature
-        self.steps = steps  # Number of Monte Carlo sweeps
-        if spins is not None:
-            self.spins = spins
+        if spin_series is None:
+            self.spin_series = []
+            self.spins = np.random.choice([-1, 1], self.size)  # Initialize spins randomly
         else:
-            self.spins = np.random.choice([-1, 1], size)  # Initialize spins randomly
+            self.spin_series = spin_series
+            self.spins = spin_series[-1]
         self.local_field_func = local_field_func
         self.connection_matrix = connection_matrix if connection_matrix is not None else np.ones((size, size)) - np.eye(size)
-        self.spin_series = None
+
     
     def metropolis_step(self):
         """
@@ -120,12 +120,13 @@ class SpinMarketModel:
             else:
                 self.spins[i] = -1
     
-    def run_simulation(self, verbose: bool = False) -> list:
+    def run_simulation(self, verbose: bool = False, steps: int = 1000) -> list:
         """
         Run the Monte Carlo simulation using the Metropolis algorithm.
 
         Parameters:
         verbose (bool): If True, prints detailed information about the simulation progress.
+        steps (int): Number of Monte Carlo sweeps to perform.
 
         Returns:
         list: A list of numpy arrays representing the spin configuration at each step of the simulation.
@@ -133,14 +134,14 @@ class SpinMarketModel:
         """Run the Monte Carlo simulation"""
         spin_series = []
         if verbose:
-            print("Running simulation with {} spins, J={}, alpha={}, T={}, steps={}".format(self.size, self.J, self.alpha, self.T, self.steps))
-        for step in range(self.steps):
-            if verbose and step % int(self.steps/10) == 0:
-                print(f"Step {step}/{self.steps}")
+            print("Running simulation with {} spins, J={}, alpha={}, T={}, steps={}".format(self.size, self.J, self.alpha, self.T, steps))
+        for step in range(steps):
+            if verbose and step % int(steps/10) == 0:
+                print(f"Step {step}/{steps}")
             self.metropolis_step()
             spin_series.append(np.copy(self.spins))
         print('Simulation finished')
-        self.spin_series = spin_series
+        self.spin_series += spin_series
         return spin_series
 
     def plot_magnetization(self):
@@ -176,29 +177,28 @@ class LatticeSpinMarketModel(SpinMarketModel):
         J (float): The ferromagnetic coupling constant.
         alpha (float): The global anti-ferromagnetic coupling constant.
         T (float): The temperature of the system.
-        steps (int): The number of Monte Carlo sweeps.
-        spins (np.ndarray): The array representing the spin states of the lattice.
+        spin_series (list): A list of numpy arrays representing the spin configuration at each step.
         local_field_func (callable): A function to calculate the local field.
         connection_matrix (np.ndarray): The matrix representing the connections in the lattice.
 
     Methods:
-        plot_lattice(spin_series, t=None, interactive=False):
+        plot_lattice(t=None, interactive=False):
             Plots the 2D lattice at a given time step.
     '''
-    def __init__(self, side: int = 32, spins: np.ndarray = None, dim: int = 2, J: float = 1, alpha: float = 4, T: float = 1.5, steps: int = 10000, local_field_func: callable = None):
+    def __init__(self, side: int = 32, spin_series: list = None, dim: int = 2, J: float = 1, alpha: float = 4, T: float = 1.5, local_field_func: callable = None):
         self.dim = dim
         self.size = side**self.dim
         self.J = J  # Ferromagnetic coupling
         self.alpha = alpha  # Global anti-ferromagnetic coupling
         self.T = T  # Temperature
-        self.steps = steps  # Number of Monte Carlo sweeps
-        if spins is not None:
-            self.spins = spins
+        if spin_series is None:
+            self.spin_series = []
+            self.spins = np.random.choice([-1, 1], self.size)  # Initialize spins randomly
         else:
-            self.spins = np.random.choice([-1, 1], (self.size))  # Initialize spins randomly
+            self.spin_series = spin_series
+            self.spins = spin_series[-1]
         self.local_field_func = local_field_func
         self.connection_matrix = lattice_connection_matrix(side=side, dim=self.dim)
-        self.spin_series = None
 
     def plot_lattice(self, t: int = None, interactive: bool = False) -> None:
         """
@@ -219,7 +219,7 @@ class LatticeSpinMarketModel(SpinMarketModel):
         if t is None:
             t = len(self.spin_series) - 1
         if interactive:
-            interact(lambda t: self.plot_lattice(self.spin_series, t), t=IntSlider(min=0, max=len(self.spin_series)-1, step=1, value=0))
+            interact(lambda t: self.plot_lattice(t), t=IntSlider(min=0, max=len(self.spin_series)-1, step=1, value=0))
         else:
             side = int(np.sqrt(self.size))
             plt.figure(figsize=(8, 8))
