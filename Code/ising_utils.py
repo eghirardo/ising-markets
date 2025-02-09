@@ -71,6 +71,7 @@ class SpinMarketModel:
     """
     def __init__(self,
                  size: int = 1024,
+                 spins: np.ndarray = None,
                  J: float = 1,
                  alpha: float = 4,
                  T: float = 1.5,
@@ -82,9 +83,13 @@ class SpinMarketModel:
         self.alpha = alpha  # Global anti-ferromagnetic coupling
         self.T = T  # Temperature
         self.steps = steps  # Number of Monte Carlo sweeps
-        self.spins = np.random.choice([-1, 1], size)  # Initialize spins randomly
+        if spins is not None:
+            self.spins = spins
+        else:
+            self.spins = np.random.choice([-1, 1], size)  # Initialize spins randomly
         self.local_field_func = local_field_func
         self.connection_matrix = connection_matrix if connection_matrix is not None else np.ones((size, size)) - np.eye(size)
+        self.spin_series = None
     
     def metropolis_step(self):
         """
@@ -135,9 +140,10 @@ class SpinMarketModel:
             self.metropolis_step()
             spin_series.append(np.copy(self.spins))
         print('Simulation finished')
+        self.spin_series = spin_series
         return spin_series
 
-    def plot_magnetization(self, spin_series):
+    def plot_magnetization(self):
         """
         Plot the time series of magnetization.
 
@@ -145,15 +151,12 @@ class SpinMarketModel:
         magnetization for each configuration. It then plots the magnetization 
         as a function of Monte Carlo steps.
 
-        Args:
-            spin_series (list of np.ndarray): A list where each element is an 
-            array representing the spin configuration at a given Monte Carlo step.
 
         Returns:
             None
         """
         """Plot the time series of magnetization"""
-        magnetization_series = [np.sum(spin) for spin in spin_series]
+        magnetization_series = [np.sum(spin) for spin in self.spin_series]
         plt.figure(figsize=(10, 5))
         plt.plot(magnetization_series, label="Magnetization")
         plt.xlabel("Monte Carlo Steps")
@@ -182,23 +185,26 @@ class LatticeSpinMarketModel(SpinMarketModel):
         plot_lattice(spin_series, t=None, interactive=False):
             Plots the 2D lattice at a given time step.
     '''
-    def __init__(self, side: int = 32, dim: int = 2, J: float = 1, alpha: float = 4, T: float = 1.5, steps: int = 10000, local_field_func: callable = None):
+    def __init__(self, side: int = 32, spins: np.ndarray = None, dim: int = 2, J: float = 1, alpha: float = 4, T: float = 1.5, steps: int = 10000, local_field_func: callable = None):
         self.dim = dim
         self.size = side**self.dim
         self.J = J  # Ferromagnetic coupling
         self.alpha = alpha  # Global anti-ferromagnetic coupling
         self.T = T  # Temperature
         self.steps = steps  # Number of Monte Carlo sweeps
-        self.spins = np.random.choice([-1, 1], (self.size))  # Initialize spins randomly
+        if spins is not None:
+            self.spins = spins
+        else:
+            self.spins = np.random.choice([-1, 1], (self.size))  # Initialize spins randomly
         self.local_field_func = local_field_func
         self.connection_matrix = lattice_connection_matrix(side=side, dim=self.dim)
+        self.spin_series = None
 
-    def plot_lattice(self, spin_series: list, t: int = None, interactive: bool = False) -> None:
+    def plot_lattice(self, t: int = None, interactive: bool = False) -> None:
         """
         Plots the 2D lattice at a given time step.
 
         Parameters:
-        spin_series (list or np.ndarray): A series of 2D arrays representing the spin states of the lattice over time.
         t (int, optional): The time step to plot. If None, the last time step is plotted. Default is None.
         interactive (bool, optional): If True, an interactive slider is provided to select the time step. Default is False.
 
@@ -211,13 +217,13 @@ class LatticeSpinMarketModel(SpinMarketModel):
         if self.dim != 2:
             raise ValueError("This method is only implemented for 2D lattices")
         if t is None:
-            t = len(spin_series) - 1
+            t = len(self.spin_series) - 1
         if interactive:
-            interact(lambda t: self.plot_lattice(spin_series, t), t=IntSlider(min=0, max=len(spin_series)-1, step=1, value=0))
+            interact(lambda t: self.plot_lattice(self.spin_series, t), t=IntSlider(min=0, max=len(self.spin_series)-1, step=1, value=0))
         else:
             side = int(np.sqrt(self.size))
             plt.figure(figsize=(8, 8))
-            plt.imshow(spin_series[t].reshape(side, side), cmap='binary', interpolation='none')
+            plt.imshow(self.spin_series[t].reshape(side, side), cmap='binary', interpolation='none')
             plt.title(f'Lattice at time t={t}')
             plt.colorbar(label='Value')
             plt.show()
