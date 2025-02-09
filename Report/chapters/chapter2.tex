@@ -1,10 +1,18 @@
 \chapter{Bornholdt model}\label{ch:chapter2}
-\textcolor{red}{Add motivation and intuition}\\
-We now present the model proposed by Bornholdt in \cite{bornholdt}. The idea is to formulate a model with maximum simplicity, which includes the possibility of strategic interaction in the market. The model is based on the Ising model, which is a model of ferromagnetism in statistical mechanics.
+We now present the model proposed in \cite{bornholdt}. The idea is to formulate a model with maximum simplicity, which includes the possibility of strategic interaction in the market. The model is based on the Ising model, which is a model of ferromagnetism in statistical mechanics.
 
 \section{Theoretical background: the Ising model}
-\textcolor{red}{Needs to be clearer}\\
-The Ising model is a simple mathematical model of ferromagnetic materials. In its description, we will mostly follow the notation and tools presented in \cite{mezard_book} and from professor Mézard's lecture notes. It consists of Ising spins (that is, spins which can take binary values) on a d-dimensional cubic lattice. Mathematically, given a cubic lattice $\mathbb{L}=\{1,\dots,L\}^n$, we define an an Ising spin $\sigma_i\in\{-1,1\}$ for each site $i\in\mathbb{L}$. Then, we can have any configuration $\underline{\sigma} = (\sigma_1,\dots,\sigma_n) \in \mathcal{X}_N=\{+1,-1\}^{\mathbb{L}}$. The energy of a configuration $\underline{\sigma}$ is given by:
+The Ising model is a simple mathematical model of ferromagnetic materials. In its description, we will mostly follow the notation and tools presented in \cite{mezard_book} and from professor Mézard's lecture notes. The model consists of Ising spins (that is, spins which can take binary values) on a d-dimensional cubic lattice (see figure \ref{fig:ising_model}). Mathematically, given a cubic lattice $\mathbb{L}=\{1,\dots,L\}^n$, we define an an Ising spin $\sigma_i\in\{-1,1\}$ for each site $i\in\mathbb{L}$. Then, we can have any configuration $\underline{\sigma} = (\sigma_1,\dots,\sigma_n) \in \mathcal{X}_N=\{+1,-1\}^{\mathbb{L}}$.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{2D_ising_model_on_lattice.svg.png}
+    \caption{The Ising model on a 2D lattice.}
+    \label{fig:ising_model}
+\end{figure}
+
+
+The energy of a configuration $\underline{\sigma}$ is given by:
 \begin{equation}
     H(\underline{\sigma}) = -\sum_{\langle i,j\rangle}\sigma_i\sigma_j - B\sum_i \sigma_i
 \end{equation}
@@ -16,7 +24,7 @@ Where $\beta$ is the inverse temperature, and $Z$ is the partition function:
 \begin{equation}
     Z = \sum_{\underline{\sigma}\in\mathcal{X}_N}e^{-\beta H(\underline{\sigma})}
 \end{equation}
-Interestingly, despite its simplicity, an analytical solution has been found only in the $d=1$ and $d=2$ cases. Higher dimensions remain unsolved, but numerical methods can be used to study the model in these cases.
+Interestingly, despite its simplicity, an analytical solution has been found only in the $d=1$ and $d=2$ cases. Higher dimensions remain unsolved, but numerical methods and mean-field approximations can be used to study the model in these cases.
 
 One important quantity in the Ising model is the magnetization, which is defined as:
 \begin{equation}
@@ -72,11 +80,11 @@ Thus, we have found an analytical expression for the partition function in the o
 
 
 \subsection{Mean-field approximation of the Ising model in higher dimensions}
-While a closed-form solution for the Ising model in two dimensions exists, it does not for $d\geq 3$ so we will study its mean-field approximation. This method is actually very general and it can be applied to a more general Ising model, and then be reconduced to the original one. The hamiltonian we focus on is:
+While a closed-form solution for the Ising model in two dimensions exists, it does not for $d\geq 3$ so we will study its mean-field approximation. The method we will see can be applied to a more general Ising model, and then be reconduced to the original one. The hamiltonian we focus on is:
 \begin{equation}
     H(\underline{\sigma}) = -\sum_{\langle i,j\rangle}J_{i,j}\sigma_i\sigma_j - \sum_i B_i\sigma_i
 \end{equation}
-Which differs from the standard Ising model by having arbitrary $J_{i,j}$ and $B_i$ for every $i,j$. The idea is to approzimate the Boltzmann distribution $P(\underline{\sigma}) = (1/Z)e^{-\beta H(\underline{\sigma})}$ with a probability with independent variables $Q(\underline{\sigma})= \prod_{i=1}^Nq_i(\sigma_i)$. The idea is to find the $q_i$ such that the ``Distance'' between $P$ and $Q$ is minimized. We will use the Kullback-Leibler divergence as notion of distance.
+Which differs from the standard Ising model by having arbitrary $J_{i,j}$ and $B_i$ for every $i,j$. The idea is to approzimate the Boltzmann distribution $P(\underline{\sigma}) = (1/Z)e^{-\beta H(\underline{\sigma})}$ with a probability with independent variables $Q(\underline{\sigma})= \prod_{i=1}^Nq_i(\sigma_i)$. The idea is to find the $q_i$ such that the ``distance'' between $P$ and $Q$ is minimized. We will use the Kullback-Leibler divergence as notion of distance.
 \begin{definition}
     Given $p(x)$ and $q(x)$ probability distributions over the same finite space $\mathcal{X}$, the Kullback–Leibler (KL) divergence between them is:
     $$D(q||p) = \sum_{x\in\mathcal{X}}q(x)\log\frac{q(x)}{p(x)}$$
@@ -128,10 +136,15 @@ Let us consider the case $B=0$. Then, depending on the value of $\beta$, we can 
 
 \section{The Bornholdt model}
 \subsection{Financial motivation}
-\textcolor{red}{To be added!}\\
+In \cite{bornholdt}, a simple spin model, which we will refer to as the Bornholdt model, is proposed to model trading in financial markets. In the model, agents are seen as interacting spins, which have two possible actions: buy or sell an asset. The choice of each agent is influenced by two contrasting forces:
+\begin{itemize}
+    \item ``Do what your neighbors do'': this is the strategy that momentum traders follow. They try to follow the trend in the market, buying when the price is rising and selling when it is falling.
+    \item ``Do what the minority does'': this is the strategy that mean-reversion traders follow. They try to buy when the price is falling and sell when it is rising, betting on a reversal of the trend.
+\end{itemize}
+We will see how these two strategies are implemented in the model.
+
 \subsection{Model definition}
-\textcolor{red}{Improve}\\
-The Bornholdt model is a simple model of a stock market, where agents can buy or sell a stock. The idea is to have a simple model that can capture the strategic interaction between agents in the market. Consider a model with N spins with orientations $\sigma_i\in\{-1,+1\}$, representing the decision of agent $i$ to buy or sell a stock. The local field of the model is updated with heat-bath dynamics according to:
+Consider a model with N spins with orientations $\sigma_i\in\{-1,+1\}$, representing the decision of agent $i$ to buy or sell a stock. We will consider updates following a heat-bath dynamics:
 \begin{equation}
     \begin{aligned}
         \sigma_i(t+1) &= +1 \;\text{with }\; p = \frac{1}{1+e^{-2\beta h_i(t)}}\\
@@ -142,7 +155,17 @@ Where $h_i(t)$ is the local field of agent $i$ at time $t$:
 \begin{equation}
     h_i(t)=\sum_{j=1}^N J_{i j} \sigma_j-\alpha C_i(t) \frac{1}{N} \sum_{j=1}^N \sigma_j(t)
 \end{equation}
-Where $J_{i j}$ is the coupling between agents $i$ and $j$, $\sigma_j$ is the agent's action at $t$, $C_i(t)$ is the strategy of $i$ at time $t$, and $\alpha$ is a parameter. The strategy is updated according to:
+Where $J_{i j}$ is the coupling between agents $i$ and $j$, $\sigma_j$ is the agent's action at $t$, $C_i(t)$ is the strategy of $i$ at time $t$, and $\alpha$ is a parameter. The first term in the local field pushes the agent to follow the trend (do what your neighbors do), while the second term pushes the agent to follow the minority (do what the minority does), assuming the strategy $C_i(t)$ is positive. 
+If we consider the case in which $C_i(t) = 1\;\forall i, t$, we have that each trader follows both a momentum and a mean-reversion strategy simultaneously. This leads to near-vanishing magnetization even for temperatures below the critical temperature. We will focus on the more interesting case in which the strategy is updated according to:
 \begin{equation}
     C_i(t+1) = -C_i(t) \quad\text{if} \; \alpha\sigma_i(t)C_i(t) \sum_{j=1}^N \sigma_j(t)< 0
 \end{equation}
+When we assume the strategy adjustment to be done instantaneously, we can write the local field as:
+\begin{equation}
+    h_i=\sum_{j=1}^N J_{i j} \sigma_j-\alpha \sigma_i \left | \frac{1}{N}\sum_{j=1}^N \sigma_j \right |
+\end{equation}
+Then, the magnetization \(M = \frac{1}{N}\sum_{j=1}^N \sigma_j\) can be interpreted as the price of the security that is being traded. We seek to study the dynamics of the model.
+
+\subsection{Analysis of the model}
+
+\section{Comparison with other financial models}
