@@ -42,14 +42,11 @@ def lattice_connection_matrix(side: int, dim: int) -> np.ndarray:
 class SpinMarketModel:
     """
     A class to represent a spin market model using the Bornholdt model.
+    
     Attributes
     ----------
     size : int
         The number of spins in the system (default is 1024).
-    J : float
-        Ferromagnetic coupling constant (default is 1).
-    alpha : float
-        Global anti-ferromagnetic coupling constant (default is 4).
     T : float
         Temperature of the system (default is 1.5).
     spins : numpy.ndarray
@@ -60,6 +57,9 @@ class SpinMarketModel:
         Function to calculate the local field at a given spin.
     connection_matrix : numpy.ndarray
         Matrix representing the connections between spins.
+    params : dict
+        Additional parameters for the model.
+    
     Methods
     -------
     metropolis_step():
@@ -72,15 +72,13 @@ class SpinMarketModel:
     def __init__(self,
                  size: int = 1024,
                  spin_series: list = None,
-                 J: float = 1,
-                 alpha: float = 4,
+                 params: dict = None,
                  T: float = 1.5,
                  local_field_func: callable = None,
                  connection_matrix: np.ndarray = None):
         self.size = size
-        self.J = J  # Ferromagnetic coupling
-        self.alpha = alpha  # Global anti-ferromagnetic coupling
         self.T = T  # Temperature
+        self.params = params if params is not None else {}
         if spin_series is None:
             self.spin_series = []
             self.spins = np.random.choice([-1, 1], self.size)  # Initialize spins randomly
@@ -108,6 +106,8 @@ class SpinMarketModel:
         - self.size: The number of spins in the system.
         - self.local_field_func: A function that calculates the local field at a given spin.
         - self.T: The temperature of the system.
+        - self.spins: The array representing
+        - self.T: The temperature of the system.
         - self.spins: The array representing the spin configuration.
         """
         """Perform a single Metropolis update"""
@@ -134,7 +134,8 @@ class SpinMarketModel:
         """Run the Monte Carlo simulation"""
         spin_series = []
         if verbose:
-            print("Running simulation with {} spins, J={}, alpha={}, T={}, steps={}".format(self.size, self.J, self.alpha, self.T, steps))
+            params_str = ', '.join([f"{k}={v}" for k, v in self.params.items()])
+            print(f"Running simulation with {self.size} spins, {params_str}, T={self.T}, steps={steps}")
         for step in range(steps):
             if verbose and step % int(steps/10) == 0:
                 print(f"Step {step}/{steps}")
@@ -174,23 +175,27 @@ class LatticeSpinMarketModel(SpinMarketModel):
     Attributes:
         dim (int): The dimensionality of the lattice.
         size (int): The total number of spins in the lattice.
-        J (float): The ferromagnetic coupling constant.
-        alpha (float): The global anti-ferromagnetic coupling constant.
         T (float): The temperature of the system.
         spin_series (list): A list of numpy arrays representing the spin configuration at each step.
         local_field_func (callable): A function to calculate the local field.
         connection_matrix (np.ndarray): The matrix representing the connections in the lattice.
+        params (dict): Additional parameters for the model.
 
     Methods:
         plot_lattice(t=None, interactive=False):
             Plots the 2D lattice at a given time step.
     '''
-    def __init__(self, side: int = 32, spin_series: list = None, dim: int = 2, J: float = 1, alpha: float = 4, T: float = 1.5, local_field_func: callable = None):
+    def __init__(self,
+                 side: int = 32,
+                 spin_series: list = None,
+                 dim: int = 2,
+                 T: float = 1.5,
+                 params: dict = None,
+                 local_field_func: callable = None):
         self.dim = dim
         self.size = side**self.dim
-        self.J = J  # Ferromagnetic coupling
-        self.alpha = alpha  # Global anti-ferromagnetic coupling
         self.T = T  # Temperature
+        self.params = params if params is not None else {}
         if spin_series is None:
             self.spin_series = []
             self.spins = np.random.choice([-1, 1], self.size)  # Initialize spins randomly
