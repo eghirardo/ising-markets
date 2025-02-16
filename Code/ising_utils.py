@@ -5,6 +5,7 @@ from ipywidgets import interact, IntSlider
 import scipy.linalg as la
 
 
+
 # Logic for code below:
 # - the matrix _path_ is the adjacency matrix of a path graph
 # - the kronecker sum of offdi with itself is the grid graph (see https://en.wikipedia.org/wiki/Kronecker_product#Abstract_properties)
@@ -39,6 +40,8 @@ def lattice_connection_matrix(side: int, dim: int) -> np.ndarray:
     else:
         return lattice_connection_matrix(side, dim-1) + np.kron(I, path)
 
+
+
 class SpinMarketModel:
     """
     A class to represent a spin market model using the Bornholdt model.
@@ -72,13 +75,17 @@ class SpinMarketModel:
     def __init__(self,
                  size: int = 1024,
                  spin_series: list = None,
+                 record_frequency: int = 1,
                  params: dict = None,
                  T: float = 1.5,
                  local_field_func: callable = None,
-                 connection_matrix: np.ndarray = None):
+                 connection_matrix: np.ndarray = None,
+                 strategy_update_func: callable = None,
+                 initial_strategy: dict = None):
         self.size = size
         self.T = T  # Temperature
         self.params = params if params is not None else {}
+        self.record_frequency = record_frequency
         if spin_series is None:
             self.spin_series = []
             self.spins = np.random.choice([-1, 1], self.size)  # Initialize spins randomly
@@ -87,6 +94,8 @@ class SpinMarketModel:
             self.spins = spin_series[-1]
         self.local_field_func = local_field_func
         self.connection_matrix = connection_matrix if connection_matrix is not None else np.ones((size, size)) - np.eye(size)
+        self.strategy_update_func = strategy_update_func
+        self.strategy_list = [initial_strategy] if initial_strategy is not None else []
 
     
     def metropolis_step(self):
@@ -101,24 +110,20 @@ class SpinMarketModel:
 
         Note:
         - The Boltzmann constant is neglected as it has no physical meaning in this application.
-
-        Attributes:
-        - self.size: The number of spins in the system.
-        - self.local_field_func: A function that calculates the local field at a given spin.
-        - self.T: The temperature of the system.
-        - self.spins: The array representing
-        - self.T: The temperature of the system.
-        - self.spins: The array representing the spin configuration.
         """
         """Perform a single Metropolis update"""
+        next_spins = np.copy(self.spins)
         for _ in range(self.size):
             i = np.random.randint(0, self.size)
             # here we neglect the boltzmann constant as it has no physical meaning in our application
             p = 1/(1 + np.exp(-2 * self.local_field_func(self, i) / self.T))
             if np.random.rand() < p:
-                self.spins[i] = +1
+                next_spins[i] = +1
             else:
-                self.spins[i] = -1
+                next_spins[i] = -1
+        self.spins = np.copy(next_spins)
+        if self.strategy_update_func is not None:
+            self.strategy_list.append(self.strategy_update_func(self))
     
     def run_simulation(self, verbose: bool = False, steps: int = 1000) -> list:
         """
@@ -140,9 +145,11 @@ class SpinMarketModel:
             if verbose and step % int(steps/10) == 0:
                 print(f"Step {step}/{steps}")
             self.metropolis_step()
-            spin_series.append(np.copy(self.spins))
+            if step % self.record_frequency == 0:
+                spin_series.append(np.copy(self.spins))
         print('Simulation finished')
         self.spin_series += spin_series
+
         return spin_series
 
     def plot_magnetization(self):
@@ -188,13 +195,17 @@ class LatticeSpinMarketModel(SpinMarketModel):
     def __init__(self,
                  side: int = 32,
                  spin_series: list = None,
+                 record_frequency: int = 1,
                  dim: int = 2,
                  T: float = 1.5,
                  params: dict = None,
-                 local_field_func: callable = None):
+                 local_field_func: callable = None,
+                 strategy_update_func: callable = None,
+                 initial_strategy: dict = None):
         self.dim = dim
         self.size = side**self.dim
         self.T = T  # Temperature
+        self.record_frequency = record_frequency
         self.params = params if params is not None else {}
         if spin_series is None:
             self.spin_series = []
@@ -204,6 +215,8 @@ class LatticeSpinMarketModel(SpinMarketModel):
             self.spins = spin_series[-1]
         self.local_field_func = local_field_func
         self.connection_matrix = lattice_connection_matrix(side=side, dim=self.dim)
+        self.strategy_update_func = strategy_update_func
+        self.strategy_list = [initial_strategy] if initial_strategy is not None else []
 
     def plot_lattice(self, t: int = None, interactive: bool = False) -> None:
         """
