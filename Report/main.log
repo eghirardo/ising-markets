@@ -1,12 +1,12 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.5)  8 FEB 2025 18:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.18)  19 FEB 2025 15:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
 **/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/main.tex
 (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/main.tex
-LaTeX2e <2024-11-01> patch level 1
-L3 programming layer <2024-11-02>
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
 (/usr/local/texlive/2024/texmf-dist/tex/latex/base/report.cls
 Document Class: report 2024/06/29 v1.4n Standard LaTeX document class
 (/usr/local/texlive/2024/texmf-dist/tex/latex/base/size12.clo
@@ -120,7 +120,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2024-11-05 v7.01l Hypertext links for LaTeX
  (/usr/local/texlive/2024/texmf-dist/tex/generic/iftex/iftex.sty
-Package: iftex 2022/02/03 v1.0f TeX engine tests
+Package: iftex 2024/12/12 v1.0g TeX engine tests
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
 ) (/usr/local/texlive/2024/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
@@ -150,7 +150,7 @@ Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
 \c@section@level=\count283
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+Package: etoolbox 2025/02/11 v2.5l e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count284
 ) (/usr/local/texlive/2024/texmf-dist/tex/generic/stringenc/stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
@@ -230,7 +230,7 @@ LaTeX Info: Redefining \cite on input line 302.
 LaTeX Info: Redefining \nocite on input line 332.
 Package: cite 2015/02/27  v 5.5
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/lipsum/lipsum.sty (/usr/local/texlive/2024/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty (/usr/local/texlive/2024/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2024-11-02 L3 programming layer (loader) 
+Package: expl3 2025-01-18 L3 programming layer (loader) 
  (/usr/local/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count295
@@ -260,40 +260,41 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layoutvoffset=\dimen164
 \Gm@dimlist=\toks25
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 21.
+\c@definition=\count302
+Package hyperref Info: Option `colorlinks' set `true' on input line 23.
  (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/main.aux (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/chapters/chapter1.aux) (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/chapters/chapter2.aux) (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/chapters/chapter3.aux) (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/chapters/conclusion.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
  (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count302
+\scratchcounter=\count303
 \scratchdimen=\dimen165
 \scratchbox=\box55
-\nofMPsegments=\count303
-\nofMParguments=\count304
+\nofMPsegments=\count304
+\nofMParguments=\count305
 \everyMPshowfont=\toks26
-\MPscratchCnt=\count305
+\MPscratchCnt=\count306
 \MPscratchDim=\dimen166
-\MPnumerator=\count306
-\makeMPintoPDFobject=\count307
+\MPnumerator=\count307
+\makeMPintoPDFobject=\count308
 \everyMPtoPDFconversion=\toks27
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -307,7 +308,7 @@ File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 149.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/mathcolor.ltx))
-Package hyperref Info: Link coloring ON on input line 23.
+Package hyperref Info: Link coloring ON on input line 25.
  (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/main.out) (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
@@ -347,11 +348,11 @@ Package hyperref Info: Link coloring ON on input line 23.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 26.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 28.
 (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 26.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 28.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
@@ -368,7 +369,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.29 \include{chapters/chapter1}
+l.31 \include{chapters/chapter1}
                                  [1
 
 ]
@@ -376,86 +377,78 @@ l.29 \include{chapters/chapter1}
 
  (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/chapters/chapter1.tex
 Chapter 1.
-
+)
 
 [2
 
 
 ]
-
-[3])
-
-[4]
 \openout2 = `chapters/chapter2.aux'.
 
  (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/chapters/chapter2.tex
 Chapter 2.
+)
 
-
-[5
+[3
 
 
 
 
 ]
-
-[6])
-
-[7]
 \openout2 = `chapters/chapter3.aux'.
 
  (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/chapters/chapter3.tex
 Chapter 3.
 
 
-[8
+[4
 
 
 
 
 ]
 
-[9])
+[5])
 
-[10]
+[6]
 \openout2 = `chapters/conclusion.aux'.
 
  (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/chapters/conclusion.tex
 Chapter 4.
 )
 
-[11
+[7
 
 
 
 
 ] (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/main.bbl)
 
-[12
+[8
 
 
 
 ] (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/main.aux (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/chapters/chapter1.aux) (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/chapters/chapter2.aux) (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/chapters/chapter3.aux) (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/chapters/conclusion.aux))
  ***********
-LaTeX2e <2024-11-01> patch level 1
-L3 programming layer <2024-11-02>
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F548363A507589F668ECDA8DEE90DDB2;2038.
+(rerunfilecheck)             Checksum: 78AFF49C75DB4480DD872CCD2E3CF483;1094.
  ) 
 Here is how much of TeX's memory you used:
- 10535 strings out of 473330
- 172942 string characters out of 5719763
- 656784 words of memory out of 5000000
- 33464 multiletter control sequences out of 15000+600000
- 567785 words of font info for 73 fonts, out of 8000000 for 9000
+ 10535 strings out of 473201
+ 172978 string characters out of 5716120
+ 658742 words of memory out of 5000000
+ 33592 multiletter control sequences out of 15000+600000
+ 568553 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,6n,93p,375b,460s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on /Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/main.pdf (13 pages, 78753 bytes).
+ 79i,6n,93p,805b,460s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on /Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/main.pdf (9 pages, 136943 bytes).
 PDF statistics:
- 190 PDF objects out of 1000 (max. 8388607)
- 165 compressed objects within 2 object streams
- 35 named destinations out of 1000 (max. 500000)
- 153 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 172 PDF objects out of 1000 (max. 8388607)
+ 135 compressed objects within 2 object streams
+ 26 named destinations out of 1000 (max. 500000)
+ 81 words of extra memory for PDF output out of 10000 (max. 10000000)
 
