@@ -1,6 +1,7 @@
 This is BibTeX, Version 0.99d (TeX Live 2024)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
+A level-1 auxiliary file: chapters/acknowledgements.aux
 A level-1 auxiliary file: chapters/chapter1.aux
 A level-1 auxiliary file: chapters/chapter2.aux
 A level-1 auxiliary file: chapters/chapter3.aux
@@ -9,7 +10,7 @@ The style file: plain.bst
 Database file #1: bibliography.bib
 You've used 2 entries,
             2118 wiz_defined-function locations,
-            515 strings with 4365 characters,
+            516 strings with 4394 characters,
 and the built_in function-call counts, 560 in all, are:
 = -- 51
 > -- 20

@@ -6,7 +6,7 @@
 \usepackage{hyperref}
 \usepackage{cite}
 \usepackage{lipsum}
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=2.5cm]{geometry}
 
 \newtheorem{definition}{Definition}
 
@@ -24,7 +24,20 @@
 
 \begin{document}
 
-\maketitle
+\pagenumbering{gobble} % Suppress page numbers initially
+
+\cleardoublepage % Add blank page after title
+\null\thispagestyle{empty}
+\cleardoublepage % Add second blank page
+\null\thispagestyle{empty}
+
+\include{chapters/acknowledgements}
+
+
+\cleardoublepage % Add second blank page
+\null\thispagestyle{empty}
+
+\pagenumbering{arabic} % Start page numbering in roman numerals
 
 \tableofcontents
 

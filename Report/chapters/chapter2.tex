@@ -6,7 +6,7 @@ The Ising model is a simple mathematical model of ferromagnetic materials. In it
 \begin{equation}
     H(\underline{\sigma}) = -\sum_{\langle i,j\rangle}\sigma_i\sigma_j - B\sum_i \sigma_i
 \end{equation}
-Where the sum over $\langle i,j\rangle$ is a sum over all nearest neighbors, and $B$ is an external magnetic field. The probability of a configuration $\underline{\sigma}$ is given by the Boltzmann distribution:
+Where the sum over $\langle i,j\rangle$ is a sum over all nearest neighbors, and $B$ is an external magnetic field. At equilibrium, the probability of a configuration $\underline{\sigma}$ is given by the Boltzmann distribution:
 \begin{equation}
     P(\underline{\sigma}) = \frac{e^{-\beta H(\underline{\sigma})}}{Z}
 \end{equation}
@@ -14,3 +14,58 @@ Where $\beta$ is the inverse temperature, and $Z$ is the partition function:
 \begin{equation}
     Z = \sum_{\underline{\sigma}\in\mathcal{X}_N}e^{-\beta H(\underline{\sigma})}
 \end{equation}
+Interestingly, despite its simplicity, an analytical solution has been found only in the $d=1$ and $d=2$ cases. Higher dimensions remain unsolved, but numerical methods can be used to study the model in these cases.
+
+One important quantity in the Ising model is the magnetization, which is defined as:
+\begin{equation}
+    m = \frac{1}{N}\sum_i \langle \sigma_i \rangle
+\end{equation}
+where $\langle \cdot \rangle$ denotes the average.
+
+\subsection{Solution of the Ising model in the one-dimensional case}
+For simplicity, assume $B=0$. In the one-dimensional case, the Ising model can be solved exactly. Recall that:
+\begin{equation}
+    H(\underline{\sigma}) = -\sum_{\langle i,j\rangle}\sigma_i\sigma_j
+\end{equation}
+Then, the partition function is given by:
+\begin{equation}
+    Z = \sum_{\underline{\sigma}\in\mathcal{X}_N}e^{-\beta H(\underline{\sigma})} =
+    \sum_{\underline{\sigma}\in\mathcal{X}_N}e^{\beta\sum_{\langle i,j\rangle}\sigma_i\sigma_j}
+\end{equation}
+Since each spin is connected to its nearest neighbors, we can write:
+\begin{equation}
+    Z =  \sum_{\underline{\sigma}\in\mathcal{X}_N}e^{\beta\sum_n\sigma_n\sigma_{n+1}}
+\end{equation}
+Let us define $\tau_n = \sigma_{n-1}\sigma_{n} \implies \sigma_n = \tau_n\tau_{n-1}\dots\tau_2\sigma_1$. Then, we can write:
+\begin{equation}
+    \begin{gathered}
+    Z =  \sum_{\sigma_1\in\{-1,1\}}\sum_{\tau_2,\dots\tau_n}e^{\beta\sum_n\tau_n}
+    = 2\sum_{\tau_2,\dots,\tau_N}e^{\beta\sum_n\tau_n}\\
+    = 2\sum_{\tau_2,\dots,\tau_N}\prod_n e^{\beta\tau_n}
+    = 2(\sum_{\tau_2}e^{\beta\tau_2})\dots(\sum_{\tau_N}e^{\beta\tau_N})\\
+    = 2(2\cosh(\beta))^{N}
+    \end{gathered}
+\end{equation}
+Thus, we have found an analytical expression for the partition function in the one-dimensional case. The magnetization can be computed as:
+\begin{equation}
+    m = \frac{1}{N}\sum_i \langle \sigma_i \rangle = \frac{1}{N}\frac{\partial}{\partial \beta}\log Z = \tanh(\beta)
+\end{equation}
+%check magnetization formula
+
+\subsection{The Curie-Weiss model}
+The Curie-Weiss model is remarkably similar to the Ising model, but with all the spins interacting with each other, then, the model represents a fully connected graph of spins rather than a lattice. The Hamiltonian is given by:
+\begin{equation}
+    H(\underline{\sigma}) = -\frac{1}{N}\sum_{i,j}\sigma_i\sigma_j - B\sum_i \sigma_i
+\end{equation}
+The scaling factor $1/N$ is introduced to have a non-trivial free energy. This model is interesting because it introduced the concept of mean-field approximations. To compute the partition function, we first notice that the empirical magnetization is:
+\begin{equation}
+    m(\underline{\sigma}) = \frac{1}{N}\sum_i  \sigma_i
+\end{equation}
+Then, we can write:
+\begin{equation}
+    H(\underline{\sigma}) = \frac{1}{2}N- \frac{1}{2}N m(\underline{\sigma})^2 - NB m(\underline{\sigma})
+\end{equation}
+
+
+
+\subsection{Mean-field approximation of the Ising model in the two-dimensional case}
