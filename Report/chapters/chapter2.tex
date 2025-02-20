@@ -1,7 +1,9 @@
 \chapter{Bornholdt model}\label{ch:chapter2}
+\textcolor{red}{Add motivation and intuition}\\
 We now present the model proposed by Bornholdt in \cite{bornholdt}. The idea is to formulate a model with maximum simplicity, which includes the possibility of strategic interaction in the market. The model is based on the Ising model, which is a model of ferromagnetism in statistical mechanics.
 
 \section{Theoretical background: the Ising model}
+\textcolor{red}{Needs to be clearer}\\
 The Ising model is a simple mathematical model of ferromagnetic materials. In its description, we will mostly follow the notation and tools presented in \cite{mezard_book} and from professor Mézard's lecture notes. It consists of Ising spins (that is, spins which can take binary values) on a d-dimensional cubic lattice. Mathematically, given a cubic lattice $\mathbb{L}=\{1,\dots,L\}^n$, we define an an Ising spin $\sigma_i\in\{-1,1\}$ for each site $i\in\mathbb{L}$. Then, we can have any configuration $\underline{\sigma} = (\sigma_1,\dots,\sigma_n) \in \mathcal{X}_N=\{+1,-1\}^{\mathbb{L}}$. The energy of a configuration $\underline{\sigma}$ is given by:
 \begin{equation}
     H(\underline{\sigma}) = -\sum_{\langle i,j\rangle}\sigma_i\sigma_j - B\sum_i \sigma_i
@@ -125,6 +127,10 @@ Let us consider the case $B=0$. Then, depending on the value of $\beta$, we can 
 \end{equation}
 
 \section{The Bornholdt model}
+\subsection{Financial motivation}
+\textcolor{red}{To be added!}\\
+\subsection{Model definition}
+\textcolor{red}{Improve}\\
 The Bornholdt model is a simple model of a stock market, where agents can buy or sell a stock. The idea is to have a simple model that can capture the strategic interaction between agents in the market. Consider a model with N spins with orientations $\sigma_i\in\{-1,+1\}$, representing the decision of agent $i$ to buy or sell a stock. The local field of the model is updated with heat-bath dynamics according to:
 \begin{equation}
     \begin{aligned}
@@ -134,5 +140,9 @@ The Bornholdt model is a simple model of a stock market, where agents can buy or
 \end{equation}
 Where $h_i(t)$ is the local field of agent $i$ at time $t$:
 \begin{equation}
-    h_i(t)=\sum_{j=1}^N J_{i j} S_j-\alpha C_i(t) \frac{1}{N} \sum_{j=1}^N S_j(t)
+    h_i(t)=\sum_{j=1}^N J_{i j} \sigma_j-\alpha C_i(t) \frac{1}{N} \sum_{j=1}^N \sigma_j(t)
+\end{equation}
+Where $J_{i j}$ is the coupling between agents $i$ and $j$, $\sigma_j$ is the agent's action at $t$, $C_i(t)$ is the strategy of $i$ at time $t$, and $\alpha$ is a parameter. The strategy is updated according to:
+\begin{equation}
+    C_i(t+1) = -C_i(t) \quad\text{if} \; \alpha\sigma_i(t)C_i(t) \sum_{j=1}^N \sigma_j(t)< 0
 \end{equation}
