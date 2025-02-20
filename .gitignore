@@ -8,3 +8,4 @@
 *.fdb_latexmk
 *.blg
 *.bbl
+*.DS_Store
