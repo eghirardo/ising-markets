@@ -1,8 +1,0 @@
-\contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}%
-\contentsline {chapter}{\numberline {2}Bornholdt model}{4}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Theoretical background: the Ising model}{4}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Solution of the Ising model in the one-dimensional case}{5}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Mean-field approximation of the Ising model in higher dimensions}{5}{subsection.2.1.2}%
-\contentsline {section}{\numberline {2.2}The Bornholdt model}{7}{section.2.2}%
-\contentsline {chapter}{\numberline {3}Simulations of the Bornholdt model}{8}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Conclusion}{9}{chapter.4}%
