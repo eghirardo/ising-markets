@@ -2,7 +2,7 @@
 We now present the model proposed by Bornholdt in \cite{bornholdt}. The idea is to formulate a model with maximum simplicity, which includes the possibility of strategic interaction in the market. The model is based on the Ising model, which is a model of ferromagnetism in statistical mechanics.
 
 \section{Theoretical background: the Ising model}
-The Ising model is a simple mathematical model of ferromagnetic materials. In its description, we will mostly follow the notation and tools presented in \cite{mezard_book}. It consists of Ising spins (that is, spins which can take binary values) on a d-dimensional cubic lattice. Mathematically, given a cubic lattice $\mathbb{L}=\{1,\dots,L\}^n$, we define an an Ising spin $\sigma_i\in\{-1,1\}$ for each site $i\in\mathbb{L}$. Then, we can have any configuration $\underline{\sigma} = (\sigma_1,\dots,\sigma_n) \in \mathcal{X}_N=\{+1,-1\}^{\mathbb{L}}$. The energy of a configuration $\underline{\sigma}$ is given by:
+The Ising model is a simple mathematical model of ferromagnetic materials. In its description, we will mostly follow the notation and tools presented in \cite{mezard_book} and from professor Mézard's lecture notes. It consists of Ising spins (that is, spins which can take binary values) on a d-dimensional cubic lattice. Mathematically, given a cubic lattice $\mathbb{L}=\{1,\dots,L\}^n$, we define an an Ising spin $\sigma_i\in\{-1,1\}$ for each site $i\in\mathbb{L}$. Then, we can have any configuration $\underline{\sigma} = (\sigma_1,\dots,\sigma_n) \in \mathcal{X}_N=\{+1,-1\}^{\mathbb{L}}$. The energy of a configuration $\underline{\sigma}$ is given by:
 \begin{equation}
     H(\underline{\sigma}) = -\sum_{\langle i,j\rangle}\sigma_i\sigma_j - B\sum_i \sigma_i
 \end{equation}
@@ -52,20 +52,87 @@ Thus, we have found an analytical expression for the partition function in the o
 \end{equation}
 %check magnetization formula
 
-\subsection{The Curie-Weiss model}
-The Curie-Weiss model is remarkably similar to the Ising model, but with all the spins interacting with each other, then, the model represents a fully connected graph of spins rather than a lattice. The Hamiltonian is given by:
-\begin{equation}
-    H(\underline{\sigma}) = -\frac{1}{N}\sum_{i,j}\sigma_i\sigma_j - B\sum_i \sigma_i
-\end{equation}
-The scaling factor $1/N$ is introduced to have a non-trivial free energy. This model is interesting because it introduced the concept of mean-field approximations. To compute the partition function, we first notice that the empirical magnetization is:
-\begin{equation}
-    m(\underline{\sigma}) = \frac{1}{N}\sum_i  \sigma_i
-\end{equation}
-Then, we can write:
-\begin{equation}
-    H(\underline{\sigma}) = \frac{1}{2}N- \frac{1}{2}N m(\underline{\sigma})^2 - NB m(\underline{\sigma})
-\end{equation}
+% \subsection{The Curie-Weiss model}
+% The Curie-Weiss model is remarkably similar to the Ising model, but with all the spins interacting with each other, then, the model represents a fully connected graph of spins rather than a lattice. The Hamiltonian is given by:
+% \begin{equation}
+%     H(\underline{\sigma}) = -\frac{1}{N}\sum_{i,j}\sigma_i\sigma_j - B\sum_i \sigma_i
+% \end{equation}
+% The scaling factor $\frac{1}{N}$ is introduced to have a non-trivial free energy. This model is interesting because it introduced the concept of mean-field approximations. To compute the partition function, we first notice that the empirical magnetization is:
+% \begin{equation}
+%     m(\underline{\sigma}) = \frac{1}{N}\sum_i  \sigma_i
+% \end{equation}
+% Then, we can write:
+% \begin{equation}
+%     H(\underline{\sigma}) = \frac{1}{2}N- \frac{1}{2}N m(\underline{\sigma})^2 - NB m(\underline{\sigma})
+% \end{equation}
 
 
 
-\subsection{Mean-field approximation of the Ising model in the two-dimensional case}
+
+\subsection{Mean-field approximation of the Ising model in higher dimensions}
+While a closed-form solution for the Ising model in two dimensions exists, it does not for $d\geq 3$ so we will study its mean-field approximation. This method is actually very general and it can be applied to a more general Ising model, and then be reconduced to the original one. The hamiltonian we focus on is:
+\begin{equation}
+    H(\underline{\sigma}) = -\sum_{\langle i,j\rangle}J_{i,j}\sigma_i\sigma_j - \sum_i B_i\sigma_i
+\end{equation}
+Which differs from the standard Ising model by having arbitrary $J_{i,j}$ and $B_i$ for every $i,j$. The idea is to approzimate the Boltzmann distribution $P(\underline{\sigma}) = (1/Z)e^{-\beta H(\underline{\sigma})}$ with a probability with independent variables $Q(\underline{\sigma})= \prod_{i=1}^Nq_i(\sigma_i)$. The idea is to find the $q_i$ such that the ``Distance'' between $P$ and $Q$ is minimized. We will use the Kullback-Leibler divergence as notion of distance.
+\begin{definition}
+    Given $p(x)$ and $q(x)$ probability distributions over the same finite space $\mathcal{X}$, the Kullback–Leibler (KL) divergence between them is:
+    $$D(q||p) = \sum_{x\in\mathcal{X}}q(x)\log\frac{q(x)}{p(x)}$$
+\end{definition}
+\begin{remark}
+    \hfill
+    \begin{enumerate}
+        \item $D(q||p)$ is convex in $q(x)$.
+        \item $D(q||p)\geq 0$ with equality $ \iff p(x)=q(x) \;\forall x\in\mathcal{X}$.
+        \item In general, the KL divergence is not symmetric.
+    \end{enumerate}
+    Then, the KL divergence lacks the symmetry property to be properly defined as a distance between probability distributions.
+\end{remark}
+We will define $Q$ as the most general joint binary probability distribution:
+\begin{equation}
+    Q(\underline{\sigma}) = \prod_{i=1}^{N}q_i(\sigma_i); \quad
+    q_i(\sigma_i)=\frac{1+m_i\sigma_i}{2}
+\end{equation}
+Where $m_i$ is the mean of each $q_i$, and it is the parameter which we want to find. Then,
+\begin{equation}
+    \begin{gathered}
+        D(Q||P) = \sum_{\underline{\sigma}\in\mathcal{X}}Q(\underline{\sigma})\log\frac{Q(\underline{\sigma})}{P(\underline{\sigma})}\\
+        =\sum_{\underline{\sigma}\in\mathcal{X}}Q(\underline{\sigma})\log Q(\underline{\sigma}) - \sum_{\underline{\sigma}\in\mathcal{X}}Q(\underline{\sigma})\log P(\underline{\sigma}) = (A) + (B)\\
+    \end{gathered}
+\end{equation}
+We can split this in the first term, depending only on $Q$, and the second term, depending on $P$ as well. Then:
+\begin{equation}
+    \begin{gathered}
+        (A) = \sum_{\underline{\sigma}\in\mathcal{X}}Q(\underline{\sigma})\log Q(\underline{\sigma}) = \sum_{i=1}^{N}\left(\frac{1+m_i}{2} \log \frac{1+m_i}{2}+\frac{1-m_i}{2} \log \frac{1-m_i}{2}\right)\\
+        (B) = \beta \sum_{i<j} J_{i j} m_i m_j + \beta \sum_i B_i m_i-\log Z
+    \end{gathered}
+\end{equation}
+In the second term, we see that the $\log Z$ term is independent of $m_i$, so we can ignore it. Then, we are interested in finding the values of $m_i$ that solve:
+\begin{equation}
+    \frac{\partial D(Q||P)}{\partial m_i} = 0 \iff \frac{1}{2} \log \frac{1+m_i}{1-m_i} - \beta \sum_{j\in \partial_i} J_{i j} m_j - \beta B_i = 0
+\end{equation}
+Then, we find the mean field equation:
+\begin{equation}
+    m_i = \tanh\left(\beta\sum_{j\in \partial_i} J_{i j} m_j + \beta B_i\right)
+\end{equation}
+Now, going back to the original Ising model, we can set $J_{i,j} = J$ and $B_i=B \implies m_i = m$. Then, we have the mean field equation for the Ising model in $d$ dimensions:
+\begin{equation}
+    m = \tanh(\beta (B + 2dJm))
+\end{equation}
+Let us consider the case $B=0$. Then, depending on the value of $\beta$, we can have one or three solutions to the mean-field equation, depending on the slope of the function $f(m) = \tanh(\beta 2dJm)$. The critical value of $\beta$ is then:
+\begin{equation}
+    \beta_c = \frac{1}{2dJ}
+\end{equation}
+
+\section{The Bornholdt model}
+The Bornholdt model is a simple model of a stock market, where agents can buy or sell a stock. The idea is to have a simple model that can capture the strategic interaction between agents in the market. Consider a model with N spins with orientations $\sigma_i\in\{-1,+1\}$, representing the decision of agent $i$ to buy or sell a stock. The local field of the model is updated with heat-bath dynamics according to:
+\begin{equation}
+    \begin{aligned}
+        \sigma_i(t+1) &= +1 \;\text{with }\; p = \frac{1}{1+e^{-2\beta h_i(t)}}\\
+        \sigma_i(t+1) &= -1 \;\text{with }\; 1-p
+    \end{aligned}
+\end{equation}
+Where $h_i(t)$ is the local field of agent $i$ at time $t$:
+\begin{equation}
+    h_i(t)=\sum_{j=1}^N J_{i j} S_j-\alpha C_i(t) \frac{1}{N} \sum_{j=1}^N S_j(t)
+\end{equation}

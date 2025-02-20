@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.18)  19 FEB 2025 16:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.18)  20 FEB 2025 11:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -261,40 +261,41 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@dimlist=\toks25
 )
 \c@definition=\count302
-Package hyperref Info: Option `colorlinks' set `true' on input line 23.
+\c@remark=\count303
+Package hyperref Info: Option `colorlinks' set `true' on input line 24.
  (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/main.aux (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/chapters/acknowledgements.aux) (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/chapters/chapter1.aux) (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/chapters/chapter2.aux) (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/chapters/chapter3.aux) (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/chapters/conclusion.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
  (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count303
+\scratchcounter=\count304
 \scratchdimen=\dimen165
 \scratchbox=\box55
-\nofMPsegments=\count304
-\nofMParguments=\count305
+\nofMPsegments=\count305
+\nofMParguments=\count306
 \everyMPshowfont=\toks26
-\MPscratchCnt=\count306
+\MPscratchCnt=\count307
 \MPscratchDim=\dimen166
-\MPnumerator=\count307
-\makeMPintoPDFobject=\count308
+\MPnumerator=\count308
+\makeMPintoPDFobject=\count309
 \everyMPtoPDFconversion=\toks27
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -308,7 +309,7 @@ File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 149.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/mathcolor.ltx))
-Package hyperref Info: Link coloring ON on input line 25.
+Package hyperref Info: Link coloring ON on input line 26.
  (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/main.out) (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
@@ -359,7 +360,7 @@ Package hyperref Info: Link coloring ON on input line 25.
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.34 \include{chapters/acknowledgements}
+l.35 \include{chapters/acknowledgements}
                                          [2
 
 ]
@@ -371,7 +372,7 @@ l.34 \include{chapters/acknowledgements}
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.34 \include{chapters/acknowledgements}
+l.35 \include{chapters/acknowledgements}
                                          [3
 
 
@@ -419,16 +420,20 @@ Chapter 2.
 
 
 
-])
+]
 
 [5]
+
+[6])
+
+[7]
 \openout2 = `chapters/chapter3.aux'.
 
  (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/chapters/chapter3.tex
 Chapter 3.
 )
 
-[6
+[8
 
 
 
@@ -440,14 +445,14 @@ Chapter 3.
 Chapter 4.
 )
 
-[7
+[9
 
 
 
 
 ] (/Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/main.bbl)
 
-[8
+[10
 
 
 
@@ -457,21 +462,21 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 529A50FACA99205E036F81278D54BB8D;1778.
+(rerunfilecheck)             Checksum: D71FB9CC790A8F1A4C60778E199DEC93;1723.
  ) 
 Here is how much of TeX's memory you used:
- 10553 strings out of 473201
- 174565 string characters out of 5716120
- 663133 words of memory out of 5000000
- 33594 multiletter control sequences out of 15000+600000
+ 10582 strings out of 473201
+ 174996 string characters out of 5716120
+ 666253 words of memory out of 5000000
+ 33609 multiletter control sequences out of 15000+600000
  565953 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,7n,93p,805b,448s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 79i,9n,93p,848b,583s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/main.pdf (11 pages, 154179 bytes).
+Output written on /Users/edoardoghirardo/Library/CloudStorage/OneDrive-UniversitàCommercialeLuigiBocconi/University_/Thesis/ising-markets/Report/main.pdf (13 pages, 171364 bytes).
 PDF statistics:
- 191 PDF objects out of 1000 (max. 8388607)
- 148 compressed objects within 2 object streams
- 35 named destinations out of 1000 (max. 500000)
+ 216 PDF objects out of 1000 (max. 8388607)
+ 171 compressed objects within 2 object streams
+ 49 named destinations out of 1000 (max. 500000)
  65 words of extra memory for PDF output out of 10000 (max. 10000000)
 
