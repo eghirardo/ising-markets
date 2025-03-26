@@ -164,8 +164,16 @@ When we assume the strategy adjustment to be done instantaneously, we can write 
 \begin{equation}
     h_i=\sum_{j=1}^N J_{i j} \sigma_j-\alpha \sigma_i \left | \frac{1}{N}\sum_{j=1}^N \sigma_j \right |
 \end{equation}
+Then, the hamiltonian of the model is:
+\begin{equation}
+    H(\underline{\sigma}) = \sum_{i,j}J_{i,j}\sigma_i\sigma_j - \frac{\alpha}{N}\sum_{i=1} \sigma_i \left | \sum_{j=1}^N \sigma_j \right |
+\end{equation}
 Then, the magnetization \(M = \frac{1}{N}\sum_{j=1}^N \sigma_j\) can be interpreted as the price of the security that is being traded. We seek to study the dynamics of the model.
 
 \subsection{Analysis of the model}
+We will focus on the case in which \(J_{i,j}=1 \; \forall i,j\). The hamiltonian of the model is then:
+\begin{equation}
+    H(\underline{\sigma}) = \sum_{i,j}\sigma_i\sigma_j - \frac{\alpha}{N}\sum_{i=1} \sigma_i \left | \sum_{j=1}^N \sigma_j \right |
+\end{equation}
 
 \section{Comparison with other financial models}

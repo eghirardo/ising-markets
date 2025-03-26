@@ -1,4 +1,4 @@
-\chapter{Simulations of the Bornholdt model}\label{ch:chapter3}
+\chapter{Simulations of the Bornholdt model}\label{ch:simulations}
 \section{Results}
 We performed a numerical simulation of the Bornholdt model, with 1024 spins arranged on a square lattice. The values for the parameters are: $J=1.0$, $\alpha=4.0$, $T=1/\beta=1.5$. 
 \subsection{Dynamics of the strategies}
@@ -85,6 +85,4 @@ The autocorrelation function of the returns is shown in figure \ref{fig:autocorr
 \section{Financial implications}
 The results of the simulation suggest that the Bornholdt model is able to reproduce some of the statistical properties of real financial data, such as fat tails and autocorrelation of returns. This is interesting because the model is based on a simple spin model, and does not rely on any assumptions about the rationality of agents or the efficiency of markets.
 
-The model also suggests that the dynamics of the price are driven by the interaction between agents, rather than by external factors such as news or economic indicators. This is consistent with the idea that financial markets are complex systems, where the interactions between agents can lead to the emergence of collective behaviour.
-
-The key assumptions of models such as \cite{black_scholes} are that the price of the underlying asset follows a geometric Brownian motion, and that the agents in the market are rational and risk-neutral. The Bornholdt model challenges these assumptions by showing that the price dynamics can be driven by the interaction between agents, and that the returns can exhibit fat tails and autocorrelation.
+The key assumptions of models such as \cite{black_scholes} are that the price of the underlying asset follows a geometric Brownian motion, meaning that the distribution of prices in any finite period is log-normal. The Bornholdt model, however, results in price dynamics which exhibit fat tails, and do not have independent increments, as shown by the autocorrelation of the returns. This is the case also in real financial data.
