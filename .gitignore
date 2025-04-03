@@ -11,3 +11,5 @@
 *.DS_Store
 *.bcf
 *.run.xml
+*.gz
+*.zip

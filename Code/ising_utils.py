@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 import random
 from ipywidgets import interact, IntSlider
 import scipy.linalg as la
-
-
+import multiprocessing as mp
+from functools import partial
 
 # Logic for code below:
 # - the matrix _path_ is the adjacency matrix of a path graph
@@ -124,7 +124,8 @@ class SpinMarketModel:
         self.spins = np.copy(next_spins)
         if self.strategy_update_func is not None:
             self.strategy_list.append(self.strategy_update_func(self))
-    
+
+        
     def run_simulation(self, verbose: bool = False, steps: int = 1000) -> list:
         """
         Run the Monte Carlo simulation using the Metropolis algorithm.
@@ -243,5 +244,5 @@ class LatticeSpinMarketModel(SpinMarketModel):
             plt.figure(figsize=(8, 8))
             plt.imshow(self.spin_series[t].reshape(side, side), cmap='binary', interpolation='none')
             plt.title(f'Lattice at time t={t}')
-            plt.colorbar(label='Value')
+            # plt.colorbar(label='Value')
             plt.show()

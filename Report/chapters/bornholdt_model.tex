@@ -134,6 +134,54 @@ Let us consider the case $B=0$. Then, depending on the value of $\beta$, we can 
     \beta_c = \frac{1}{2dJ}
 \end{equation}
 
+\subsection{The Curie-Weiss model}
+\textcolor{red}{TBA: definition and mean-field approximation of the curie weiss model}
+
+\section{Financial background: option pricing}
+\label{sec:financial_background}
+\textcolor{red}{TBA: introduction}
+\subsection{Setting and options}
+Let $\mathcal{T}$ be the set of trading times, and let $\Omega$ be the state space of the price of a stock. Let $\mathcal{P} = \{\mathcal{P}_t\}_{t\in\mathcal{T}}$ be a filtration on $\Omega$. On this setting, we can define a locally riskless asset $\{B(t)\}_{t\in\mathcal{T}}$, described by a $\mathcal{P}_t$-measurable stochastic process $\{r(t)\}_{t\in\mathcal{T}}$, which is the return of $B(t)$ at time $t$. The return is defined as:
+\begin{equation}
+    r(t) = \frac{B(t+1)-B(t)}{B(t)} \quad \forall t\in\mathcal{T}
+\end{equation}
+We can also define N risky asset as $\mathcal{P}_{t+1}$-measurable stochastic processes $\{S_i(t)\}_{t\in\mathcal{T}} \; i\in \{1,\dots,N\}$, which is the price of each asset at time $t$. Intuitively, the locally riskless asset is a bond, for which we know the return at time $t+1$ given the return at time $t$. The risky assets are stocks, for which we do not know the return at time $t+1$ given the return at time $t$.
+
+Let $\theta_j = \{\theta_j(t)\}_{t\in\mathcal{T}}$ be stochastic process representing the value of the position held in the j-th asset, which might be positive or negative (in the case of short selling).
+
+We can now go ahead and define what a european call option is.
+\begin{definition}
+    A european call option is a contract that gives the holder the right, but not the obligation, to buy an asset at a specified price (the strike price) at a specified time (the expiration date). The payoff of a european call option at time $t$ is given by:
+    \begin{equation}
+        X(t) = \begin{cases}
+            max(S(t)-K,0) & \text{if } t = T\\
+            0 & \text{if } t < T
+        \end{cases}
+    \end{equation}
+    Where $S(t)$ is the price of the underlying asset at time $t$, $K$ is the strike price, and $T$ is the expiration date. The payoff is zero if the option is not exercised, and it is equal to the difference between the price of the underlying asset and the strike price if the option is exercised.
+\end{definition}
+
+A european put option is defined similarly, but it is defined as the right to sell an asset at a specified price at a specified time.
+
+\subsection{Assumptions of the Black-Scholes model}
+The Black-Scholes model is a mathematical model for the pricing of european options, indtroduced in \cite{black_scholes}. The assmuptions for deriving the price of the option are:
+\begin{enumerate}
+    \item The locally riskless asset is known and constant over time: $r(t) = r \;\forall t\in\mathcal{T}$.
+    \item  \label{it:gbm}The risky asset follows a geometric Brownian motion, meaning that the price of the asset at time $t$ is given by:
+    \begin{equation}
+        S(t) = S(0)e^{(r-\frac{\sigma^2}{2})t+\sigma W(t)}
+    \end{equation}
+    \textcolor{red}{TBA: check this equation}
+    Where $W(t)$ is a standard Brownian motion, and $\sigma$ is the volatility of the asset.
+    \item The market is frictionless, meaning that there are no transaction costs, and the assets can be traded continuously.
+    \item The asset pays no dividends.
+    \item It is possible to short-sell the asset without any restrictions or penalties.
+    \item It is possible to borrow a fraction of the security at the risk-free rate.
+\end{enumerate}
+\textcolor{red}{TBA: Black-Scholes model (if deemed useful)}\\
+This model is widely used in the financial industry, and it is the basis for many other models. \textcolor{red}{part about how useful the model is and how important derivatives are}
+The key assumption of this model is \ref{it:gbm}, which requires that the price of the underlying asset follows a geometric Brownian motion. This would imply that the distribution of prices in any finite period is log-normal. This assumption has more to do with the ease of computation that such a distribution allows rather than the real-world features of financial data. As a matter of fact, it has been shown that the distribution of returns is fat-tailed, meaning that there are more extreme events than would be predicted by a normal distribution, and the returns show autocorrelation, which means that returns are not independent over time. This is a key observation, and it is one of the main motivations for studying models such as the Bornholdt model.
+
 \section{The Bornholdt model}
 \subsection{Financial motivation}
 In \cite{bornholdt}, a simple spin model, which we will refer to as the Bornholdt model, is proposed to model trading in financial markets. In the model, agents are seen as interacting spins, which have two possible actions: buy or sell an asset. The choice of each agent is influenced by two contrasting forces:
@@ -150,6 +198,7 @@ Consider a model with N spins with orientations $\sigma_i\in\{-1,+1\}$, represen
         \sigma_i(t+1) &= +1 \;\text{with }\; p = \frac{1}{1+e^{-2\beta h_i(t)}}\\
         \sigma_i(t+1) &= -1 \;\text{with }\; 1-p
     \end{aligned}
+    \label{eq:heat_bath}
 \end{equation}
 Where $h_i(t)$ is the local field of agent $i$ at time $t$:
 \begin{equation}
@@ -171,9 +220,9 @@ Then, the hamiltonian of the model is:
 Then, the magnetization \(M = \frac{1}{N}\sum_{j=1}^N \sigma_j\) can be interpreted as the price of the security that is being traded. We seek to study the dynamics of the model.
 
 \subsection{Analysis of the model}
-We will focus on the case in which \(J_{i,j}=1 \; \forall i,j\). The hamiltonian of the model is then:
+We will focus on the fully connected case in which \(J_{i,j}=\frac{J}{N} \; \forall i,j\). The hamiltonian of the model is then:
 \begin{equation}
-    H(\underline{\sigma}) = \sum_{i,j}\sigma_i\sigma_j - \frac{\alpha}{N}\sum_{i=1} \sigma_i \left | \sum_{j=1}^N \sigma_j \right |
+    H(\underline{\sigma}) = \frac{J}{N}\sum_{i,j}\sigma_i\sigma_j - \frac{\alpha}{N}\sum_{i=1} \sigma_i \left | \sum_{j=1}^N \sigma_j \right |
 \end{equation}
 
-\section{Comparison with other financial models}
+\textcolor{red}{TBA: Analysis of the model}
