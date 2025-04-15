@@ -1,4 +1,10 @@
 \chapter{Conclusion}\label{ch:conclusion}
-In this thesis, we have explored [briefly summarize the main topics or findings]. The results indicate that [summarize key findings]. 
+In this work, we have briefly introduced the formal languages of financial mathematics and statistical physics, in order to challenge the common assumption that prices of risky assets follow a geometric Brownian motion with constant volatility.
 
-The contributions of this work include [list contributions]. Future work could focus on [suggest future research directions].
+Looking for a more realistic model, we have introduced the Bornholdt model, which takes into account the interaction between agents when modelling price dynamics. We have shown that, empirically, the model is able to reproduce the stylized facts of financial time series, such as the power law distribution of returns and the volatility clustering phenomenon.
+
+However, this model does not come without its limitations, both in terms of the assumptions made and the analytical tractability. In what is perhaps the biggest limitation, we have chosen the magnetization as a proxy for the price, with the clear limitation that while prices can take values in \(\mathbb{R}^+\), the magnetization is bounded between \(-1\) and \(1\). Additionally, the agents in the model are restricted between the binary states of either buying or selling, without allowing for the possibility of holding a position, as well as neglecting the different volumes of trades which investors might make.
+
+Another limitation of the model is that, unlike geometric Brownian motion, the Bornholdt model does not have the same level of analytical tractability. This makes it difficult to price derivative contracts, which are at the backbone of modern financial markets.
+
+Ideally, future work could focus on extending the Bornholdt model to include more realistic features of financial markets, such as the possibility of holding a position, the volume of trades, and the inclusion of transaction costs to name a few. Additionally, it would be interesting to explore which assumptions could be relaxed in order to obtain a more tractable model, while still being able to reproduce the stylized facts of financial time series.
