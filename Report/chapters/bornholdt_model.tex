@@ -25,12 +25,30 @@ Where $h_i(t)$ is the local field of agent $i$ at time $t$:
 \begin{equation}
     h_i(t)=\sum_{j=1}^N J_{i j} \sigma_j-\alpha C_i(t) \frac{1}{N} \sum_{j=1}^N \sigma_j(t)
 \end{equation}
-Where $J_{i j}$ is the coupling between agents $i$ and $j$, $\sigma_j$ is the agent's action at $t$, $C_i(t)$ is the strategy of $i$ at time $t$, and $\alpha$ is a parameter. The first term in the local field pushes the agent to follow the trend (do what your neighbors do), while the second term pushes the agent to follow the minority (do what the minority does), assuming the strategy $C_i(t)$ is positive. 
-If we consider the case in which $C_i(t) = 1\;\forall i, t$, we have that each trader follows both a momentum and a mean-reversion strategy simultaneously. This leads to near-vanishing magnetization even for temperatures below the critical temperature. We will focus on the more interesting case in which the strategy is updated according to:
+Where $J_{i j}$ is the coupling between agents $i$ and $j$, $\sigma_j$ is the agent's action at $t$, $C_i(t)$ is the strategy of $i$ at time $t$, and $\alpha$ is a parameter. The first term in the local field pushes the agent to follow the trend of spins in their proximity (do what your neighbors do), while the second term pushes the agent to follow the minority (do what the minority does), assuming the strategy $C_i(t)$ is positive. 
+If we consider the case in which $C_i(t) = 1\;\forall i, t$, we have that each trader follows both a momentum and a mean-reversion strategy simultaneously. This leads to near-vanishing magnetization even for temperatures below the critical temperature. 
+We will focus on the more interesting and realistic case in which the strategies are updated at each time by each agent. Specifically, we will assume that a trader in the majority will try to switch to the minority strategy and thus adopt $C_i(t+1) = +1$, while a trader in the minority will try to switch to the majority strategy and thus adopt $C_i(t+1) = -1$. This is a reasonable assumption, as traders in the minority are likely to be more cautious and risk-averse, while traders in the majority are likely to be more aggressive and willing to take risks. This dynamics is the described by:
 \begin{equation}
-    C_i(t+1) = -C_i(t) \quad\text{if} \; \alpha\sigma_i(t)C_i(t) \sum_{j=1}^N \sigma_j(t)< 0
+    C_i(t+1) = \begin{cases}
+        +1 & \text{if} \quad \alpha\sigma_i(t) \sum_{j=1}^N \sigma_j(t)> 0\\
+        -1 & \text{otherwise}
+    \end{cases}
 \end{equation}
-When we assume the strategy adjustment to be done instantaneously, we can write the local field as:
+Rearranging the equation, we can write:
+\begin{equation}
+    C_i(t+1) = \begin{cases}
+        +C_i(t) & \text{if} \quad \alpha\sigma_i(t)C_i(t) \sum_{j=1}^N \sigma_j(t)> 0\\
+        -C_i(t) & \text{otherwise}
+    \end{cases}
+\end{equation}
+Now, we can take one extra step and assume that the strategy update is done instantaneously, so that we can write:
+\begin{equation}
+    C_i(t) = \begin{cases}
+        +C_i(t) & \text{if} \quad \alpha\sigma_i(t)C_i(t) \sum_{j=1}^N \sigma_j(t)> 0\\
+        -C_i(t) & \text{otherwise}
+    \end{cases}
+\end{equation}
+Then, substituting this into the local field, we have a remarkably simple expression for the local field:
 \begin{equation}
     h_i=\sum_{j=1}^N J_{i j} \sigma_j-\alpha \sigma_i \left | \frac{1}{N}\sum_{j=1}^N \sigma_j \right |
 \end{equation}
@@ -38,7 +56,7 @@ Then, the hamiltonian of the model is:
 \begin{equation}
     H(\underline{\sigma}) = \sum_{i,j}J_{i,j}\sigma_i\sigma_j - \frac{\alpha}{N}\sum_{i=1} \sigma_i \left | \sum_{j=1}^N \sigma_j \right |
 \end{equation}
-Then, the magnetization \(M = \frac{1}{N}\sum_{j=1}^N \sigma_j\) can be interpreted as the price of the security that is being traded. We seek to study the dynamics of the model.
+At this point, the magnetization \(M = \frac{1}{N}\sum_{j=1}^N \sigma_j\) can be interpreted as the price of the security that is being traded. We seek to study the dynamics of the model.
 
 \subsection{Analysis of the model}
 We will focus on the fully connected case in which \(J_{i,j}=\frac{J}{N} \; \forall i,j\). The hamiltonian of the model is then:
@@ -50,6 +68,16 @@ We will focus on the fully connected case in which \(J_{i,j}=\frac{J}{N} \; \for
 
 \section{Simulations of the Bornholdt model}
 We conducted an extensive numerical simulation of the Bornholdt model, employing a system consisting of 1024 spins arranged in a two-dimensional square lattice. The coupling constant was set to $J=1.0$, the external field parameter was $\alpha=4.0$, and the temperature of the system was defined as $T=1/\beta=1.5$. The simulation was carried out over a sufficiently large number of time steps to allow the results to be representative of the model's long-term dynamics.
+
+\subsection{Only fundamental traders}
+We start by analysing the case in which all agents are fundamental traders, meaning that they all follow the same strategy. In this case, we set $C_i(t) = 1$ for all agents and all times. The results of the simulation are shown in figure \ref{fig:fundamental_traders}. As expected, the system is stuck in a noisy state in which the magnetization fluctuates between low positive and negative values.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{constant_c_magnetization.png}
+    \caption{Dynamics of the magnetization of the system with only fundamental traders.}
+    \label{fig:fundamental_traders}
+\end{figure}
 
 \subsection{Dynamics of the strategies}
 The simulations indicate that the initial distribution of agents' strategies has a negligible long-term impact on the system's behavior. Regardless of the starting configuration, the system quickly converges to a stable state where approximately 50\% to 70\% of agents adopt the strategy $C_i(t) = 1$. This convergence is evident from the dynamics shown in figure \ref{fig:strategies}. Consequently, for the purposes of simulating the model, it is not necessary to distinguish between different initial distributions of strategies, as the system's evolution is largely independent of these initial conditions.
@@ -105,7 +133,7 @@ The analysis of the distribution of the returns, as illustrated in figures \ref{
 
 To further investigate this property, we compare the returns to a normal distribution using a QQ-plot, shown in figure \ref{fig:qqplot}. The QQ-plot clearly demonstrates significant deviations from the straight line that would be expected if the returns were normally distributed. These deviations, particularly in the tails, confirm the presence of fat tails in the distribution.
 
-Additionally, we perform a statistical test to formally assess whether the returns follow a normal distribution. Specifically, we use the Shapiro-Wilk test, which tests the null hypothesis that the data is drawn from a normal distribution. The results of the test yield a p-value on the order of $10^{-192}$. Such an extremely small p-value indicates that we can reject the null hypothesis with extremely high confidence, confirming that the returns are not normally distributed.
+Additionally, we perform a statistical test to formally assess whether the returns follow a normal distribution. Specifically, we use the Shapiro-Wilk test, which tests the null hypothesis that the data is drawn from a normal distribution. The results of the test yield a p-value on the order of $10^{-192}$. Such an extremely small p-value indicates that we can reject the null hypothesis with extremely high confidence, confirming that the returns are not normally distributed. Additionally, we compute the kurtosis of the returns, which is approximately 24.2. This value indicates an extremely leptokurtic distribution, suggesting a very high likelihood of outliers.
 \begin{figure}[H]
     \centering
     \begin{minipage}{0.45\textwidth}

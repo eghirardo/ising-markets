@@ -7,6 +7,7 @@
 In this section, we will first provide a brief introduction to the language of financial mathematics, and then introduce the Black-Scholes model for option pricing.
 
 \subsection{Setting and options}
+\textcolor{red}{change to continuous time}\\s
 Let $\mathcal{T}$ be the set of trading times, and let $\Omega$ be the state space of the price of a stock. Let $\mathcal{P} = \{\mathcal{P}_t\}_{t\in\mathcal{T}}$ be a filtration on $\Omega$. On this setting, we can define a locally riskless asset $\{B(t)\}_{t\in\mathcal{T}}$, described by a $\mathcal{P}_t$-measurable stochastic process $\{r(t)\}_{t\in\mathcal{T}}$, which is the return of $B(t)$ at time $t$. The return is defined as:
 \begin{equation}
     r(t) = \frac{B(t+1)-B(t)}{B(t)} \quad \forall t\in\mathcal{T}
@@ -42,7 +43,7 @@ The Black-Scholes model is a mathematical model for the pricing of european opti
     \begin{equation}
         dS(t) = \mu S(t) dt + \sigma S(t) dW(t)
     \end{equation}
-    Where $W(t)$ is a standard Brownian motion, and $\sigma$ is the volatility of the asset.
+    Where $W(t)$ is a standard Brownian motion, $\mu$ is the constant drift, and $\sigma$ is the volatility of the asset.
     \item The market is frictionless, meaning that there are no transaction costs, and the assets can be traded continuously.
     \item The asset pays no dividends.
     \item It is possible to short-sell the asset without any restrictions or penalties.
@@ -112,7 +113,7 @@ This is the Black-Scholes partial differential equation (PDE).
 The Black-Scholes formula for a European call option with strike price \( K \), time to maturity \( T - t \), and current underlying price \( S \) is:
 
 \[
-C(S,t) = S \Phi(d_1) - K e^{-r(T - t)} \Phi(d_2)
+V(S,t) = S \Phi(d_1) - K e^{-r(T - t)} \Phi(d_2)
 \]
 
 where:
@@ -269,4 +270,53 @@ Let us consider the case $B=0$. Then, depending on the value of $\beta$, we can 
 \end{equation}
 
 \subsection{The Curie-Weiss model}
-\textcolor{red}{TBA: definition and mean-field approximation of the curie weiss model}
+The Curie-Weiss model is a generalization of the Ising model, where instead of interacting with nearest neighbors, each spin interacts with all other spins. The Hamiltonian is given by:
+\begin{equation}
+    H(\underline{\sigma}) = -\frac{J}{N}\sum_{i<j}\sigma_i\sigma_j - B\sum_i \sigma_i
+\end{equation}
+The scaling factor $\frac{1}{N}$ is introduced to have a non-trivial free energy. This model is interesting because it introduced the concept of mean-field approximations. As usual, the partition function is given by:
+\begin{equation}
+    \begin{aligned}
+        Z &= \sum_{\underline{\sigma}\in\mathcal{X}_N}e^{-\beta H(\underline{\sigma})}\\
+        &= \sum_{\underline{\sigma}\in\mathcal{X}_N}e^{\beta\frac{J}{N}\sum_{i<j}\sigma_i\sigma_j+\beta B \sum_i \sigma_i}\\
+        &= \sum_{\underline{\sigma}\in\mathcal{X}_N}e^{\frac{1}{2}\beta\frac{J}{N}\sum_{i,j}\sigma_i\sigma_j+\beta B \sum_i \sigma_i-\frac{1}{2}\beta J}\\
+        &= \sum_{\underline{\sigma}\in\mathcal{X}_N}e^{\frac{1}{2}\beta\frac{J}{N}\left(\sum_{i}\sigma_i\right)^2+\beta B \sum_i \sigma_i-\frac{1}{2}\beta J}\\
+    \end{aligned}
+\end{equation}
+Now, we can apply the Hubbard-Stratonovich transformation:
+\begin{equation}
+    e^{\frac{b^2}{2a}} = \int_{-\infty}^{+\infty}\frac{dx}{\sqrt{2\pi/ a}} e^{-\frac{1}{2}ax^2+bx}
+\end{equation}
+Then, we can rewrite the quadratic term:
+\begin{equation}
+    e^{\frac{1}{2}\beta\frac{J}{N}\left(\sum_{i}\sigma_i\right)^2} = \int_{-\infty}^{+\infty}\frac{dx}{\sqrt{2\pi/N}} e^{-\frac{1}{2}Nx^2+\sqrt{\beta J}\left(\sum_i \sigma_i\right)x}
+\end{equation}
+Then, the partition function becomes:
+\begin{equation}
+    \begin{aligned}
+        Z &= \sum_{\underline{\sigma}\in\mathcal{X}_N}\int_{-\infty}^{+\infty}\frac{dx}{\sqrt{2\pi/N}} e^{-\frac{1}{2}Nx^2+\sqrt{\beta J}\left(\sum_i \sigma_i\right)x+\beta B \sum_i \sigma_i-\frac{1}{2}\beta J} \\
+        &\approx \sum_{\underline{\sigma}\in\mathcal{X}_N}\int_{-\infty}^{+\infty}dx e^{-\frac{1}{2}Nx^2+\sqrt{\beta J}\left(\sum_i \sigma_i\right)x+\beta B \sum_i \sigma_i} \\
+        &= \int_{-\infty}^{+\infty}dx e^{-\frac{1}{2}Nx^2} \sum_{\underline{\sigma}\in\mathcal{X}_N}e^{\sqrt{\beta J}\left(\sum_i \sigma_i\right)x+\beta B \sum_i \sigma_i-\frac{1}{2}\beta J}\\
+        &= \int_{-\infty}^{+\infty}dx e^{-\frac{1}{2}Nx^2} \left(\sum_{\sigma \in \{-1,1\}}e^{\sqrt{\beta J}\sigma x+\beta B \sigma}\right)^N\\
+        &=  \int_{-\infty}^{+\infty}dx e^{-\frac{1}{2}Nx^2+N\log\left(2\cosh(x\sqrt{\beta J}+\beta B)\right)}
+    \end{aligned}
+\end{equation}
+Where the first approximation comes from the thermodynamic limit, where we only focus on terms which are $O(N)$ and ignore subleading terms in the exponential. Now, we can use the Laplace method to compute the integral:
+\begin{equation}
+    \begin{aligned}
+        \int_{-\infty}^{+\infty}dx e^{Nf(x)} \approx \sqrt{\frac{2\pi}{Nf''(x_0)}}e^{Nf(x_0)}\\
+    \end{aligned}
+\end{equation}
+Where $x_0$ is the maximum of $f(x)$, and $f''(x_0)$ is the second derivative of $f(x)$ at $x_0$. In our case:
+\begin{equation}
+    x_0 = \sqrt{\beta J}\tanh(x_0\sqrt{\beta J}+\beta B)
+\end{equation}
+Giving us an approximate solution for the partition function:
+\begin{equation}
+    Z \approx \sqrt{\frac{2\pi}{Nf''(x_0)}}e^{Nf(x_0)}
+\end{equation}
+From which we can derive the magnetization:
+\begin{equation}
+    m = \tanh(\beta(B+Jm))
+\end{equation}
+Which is the mean-field equation for the Curie-Weiss model.
