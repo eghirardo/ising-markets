@@ -54,14 +54,17 @@ Then, substituting this into the local field, we have a remarkably simple expres
 \end{equation}
 Then, the hamiltonian of the model is:
 \begin{equation}
-    H(\underline{\sigma}) = \sum_{i,j}J_{i,j}\sigma_i\sigma_j - \frac{\alpha}{N}\sum_{i=1} \sigma_i \left | \sum_{j=1}^N \sigma_j \right |
+    \begin{aligned}
+        H(\underline{\sigma}) &= -\sum_{i=1}^N \sigma_i h_i\\
+        &= -\sum_{i,j}J_{i,j}\sigma_i\sigma_j + \frac{\alpha}{N}\sum_{i=1}^N \sigma_i \left | \sum_{j=1}^N \sigma_j \right |
+    \end{aligned}
 \end{equation}
 At this point, the magnetization \(M = \frac{1}{N}\sum_{j=1}^N \sigma_j\) can be interpreted as the price of the security that is being traded. We seek to study the dynamics of the model.
 
 \subsection{Analysis of the model}
 We will focus on the fully connected case in which \(J_{i,j}=\frac{J}{N} \; \forall i,j\). The hamiltonian of the model is then:
 \begin{equation}
-    H(\underline{\sigma}) = \frac{J}{N}\sum_{i,j}\sigma_i\sigma_j - \frac{\alpha}{N}\sum_{i=1} \sigma_i \left | \sum_{j=1}^N \sigma_j \right |
+    H(\underline{\sigma}) = -\frac{J}{N}\sum_{i,j}\sigma_i\sigma_j + \frac{\alpha}{N}\sum_{i=1}^N \sigma_i \left | \sum_{j=1}^N \sigma_j \right |
 \end{equation}
 
 \textcolor{red}{TBA: Analysis of the model}
