@@ -4,9 +4,9 @@
 \section{Financial mathematics: option pricing}
 \label{sec:financial_background}
 \textcolor{red}{to be expanded: introduction}\\
-In this section, we will first provide a brief introduction to the language of financial mathematics, and then introduce the Black-Scholes model for option pricing.
+In this section, we will first provide a brief introduction to the language of financial mathematics in continuous time, and then introduce the Black-Scholes model for option pricing.
 
-\subsection{Setting and options}
+\subsection{Setting and no-arbitrage theory}
 \textcolor{red}{change to continuous time}\\s
 Let $\mathcal{T}$ be the set of trading times, and let $\Omega$ be the state space of the price of a stock. Let $\mathcal{P} = \{\mathcal{P}_t\}_{t\in\mathcal{T}}$ be a filtration on $\Omega$. On this setting, we can define a locally riskless asset $\{B(t)\}_{t\in\mathcal{T}}$, described by a $\mathcal{P}_t$-measurable stochastic process $\{r(t)\}_{t\in\mathcal{T}}$, which is the return of $B(t)$ at time $t$. The return is defined as:
 \begin{equation}
@@ -193,6 +193,7 @@ Let us define $\tau_n = \sigma_{n-1}\sigma_{n} \implies \sigma_n = \tau_n\tau_{n
 \end{equation}
 Thus, we have found an analytical expression for the partition function in the one-dimensional case. The magnetization can be computed as:
 \begin{equation}
+    \label{eq:ising}
     m = \frac{1}{N}\sum_i \langle \sigma_i \rangle = \frac{1}{N}\frac{\partial}{\partial \beta}\log Z = \tanh(\beta)
 \end{equation}
 %check magnetization formula
@@ -278,47 +279,93 @@ Then, we can rewrite the hamiltonian as:
 And the partition function becomes:
 \begin{equation}
     \begin{aligned}
-        Z &= e^{-\frac{1}{2}\beta J}\sum_{\underline{\sigma}\in\mathcal{X}_N}e^{\frac{1}{2}\beta J N m^2(\underline{\sigma}) + \beta B N m(\underline{\sigma})}\\
-        &= e^{-\frac{1}{2}\beta J}\sum_{m=-1}^{+1}e^{\frac{1}{2}\beta J N m^2 + \beta B N m} \sum_{\underline{\sigma}\in\mathcal{X}_N|m(\underline{\sigma})=m} 1\\
-        &= e^{-\frac{1}{2}\beta J}\sum_{m=-1}^{+1}e^{\frac{1}{2}\beta J N m^2 + \beta B N m} \binom{N}{N(1+m)/2}\\
+        Z &= \sum_{\underline{\sigma}\in\mathcal{X}_N}e^{\frac{1}{2}\beta J N m^2(\underline{\sigma}) + \beta B N m(\underline{\sigma})-\frac{1}{2}\beta J}\\
+        &= \sum_{m}e^{\frac{1}{2}\beta J N m^2 + \beta B N m-\frac{1}{2}\beta J}\mathcal{N}(m)\\
+        &= \sum_{m}e^{N\left(\frac{1}{2}\beta J m^2 + \beta B m + \frac{1}{N}\log\mathcal{N}(m)\right)-\frac{1}{2}\beta J}
     \end{aligned}
+\end{equation}
+Where $\mathcal{N}(m)$ is the number of configurations with magnetization $m$. Now, we can focus on the term $\frac{1}{N} \log\mathcal{N}(m)$, which in the large $N$ limit we will call $S(m)$.
+\begin{equation}
+    \begin{aligned}
+        S(m) &= \lim_{N \rightarrow \infty}\frac{1}{N}\log\mathcal{N}(m)\\
+        &= \lim_{N \rightarrow \infty}\frac{1}{N}\log \frac{N!}{\left(\frac{1+m}{n}N\right)!\left(\frac{1-m}{n}N\right)!}\\
+    \end{aligned}
+\end{equation}
+Since, in order to get a magnetization $m$, we need exactly $\frac{1+m}{2}N$ spins up and $\frac{1-m}{2}N$ spins down, which can happen in $\binom{N}{\frac{1+m}{2}N}$ ways. Then, since we are interested in the large $N$ limit, we can use Stirling's approximation:
+\begin{equation}
+    \log n! \approx n\log n - n
+\end{equation}
+Which allows us to rearrange and simplify the expression for $S(m)$:
+\begin{equation}
+    S(m) = -\frac{1+m}{2}\log\left(\frac{1+m}{2}\right) - \frac{1-m}{2}\log\left(\frac{1-m}{2}\right)
 \end{equation}
 
-\newpage
-Now, we can apply the Hubbard-Stratonovich transformation:
+Now, we recall the definition of the Shannon entropy:
+\begin{definition}
+    The Shannon entropy of a discrete probability distribution $p(x)$ is defined as:
+    \begin{equation}
+        S(p) = -\sum_x p(x)\log p(x)
+    \end{equation}
+    Where the sum is taken over all possible values of $x$.
+    The Shannon entropy measures the amount of uncertainty or information in the distribution.
+\end{definition}
+
+And we notice that $S(m)$ is the Shannon entropy of a bernoulli distribution with probability $p = \frac{1+m}{2}$ and $q = \frac{1-m}{2}$.
+
+Now, in the large $N$ limit, we notice the following:
+\begin{itemize}
+    \item The increments of $m$ become infinitesimal, allowing us to treat the sum as an integral.
+    \item We can use the stirling approximation for the factorials, allowing us to subtitute $\frac{1}{N}\log\mathcal{N}(m)$ with $S(m)$.
+    \item We can neglect the term $-\frac{1}{2}\beta J$ in the exponent, as it is $o(N)$.
+\end{itemize}
+Then, we can rewrite the partition function as:
 \begin{equation}
-    e^{\frac{b^2}{2a}} = \int_{-\infty}^{+\infty}\frac{dx}{\sqrt{2\pi/ a}} e^{-\frac{1}{2}ax^2+bx}
+    \label{eq:curie_weiss_phi}
+    Z \approx \int_{-1}^{1} dm e^{N\phi(m)}, \quad \text{where }
+    \phi(m) = \frac{1}{2}\beta J m^2 + \beta B m + S(m)
 \end{equation}
-Then, we can rewrite the quadratic term:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.49\textwidth]{curieweiss/m_phi_B0.pdf}
+    \includegraphics[width=0.49\textwidth]{curieweiss/m_phi_B01.pdf}
+    \caption{The function $\phi(m)$ defined in Equation~\ref{eq:curie_weiss_phi} for $B=0$ (left) and $B=0.1$ (right).}
+    \label{fig:curie_weiss_phi_B0}
+\end{figure}
+
+Using the laplace approximation, we see that the integral is dominated by the maximum of $\phi(m)$, which we will call $m_0$.
+
 \begin{equation}
-    e^{\frac{1}{2}\beta\frac{J}{N}\left(\sum_{i}\sigma_i\right)^2} = \int_{-\infty}^{+\infty}\frac{dx}{\sqrt{2\pi/N}} e^{-\frac{1}{2}Nx^2+\sqrt{\beta J}\left(\sum_i \sigma_i\right)x}
+    \begin{gathered}
+        \frac{d}{dm}\phi(m_0) =  0 \\
+        \implies \beta J m_0 + \beta B + \frac{1}{2}\left(\log \frac{1-m}{1+m}\right) = 0\\
+        \implies \arctanh(m_0) = \beta J m_0 + \beta B\\
+    \end{gathered}
 \end{equation}
-Then, the partition function becomes:
+Thus, we have found the mean-field equation for the Curie-Weiss model:
 \begin{equation}
-    \begin{aligned}
-        Z &= \sum_{\underline{\sigma}\in\mathcal{X}_N}\int_{-\infty}^{+\infty}\frac{dx}{\sqrt{2\pi/N}} e^{-\frac{1}{2}Nx^2+\sqrt{\beta J}\left(\sum_i \sigma_i\right)x+\beta B \sum_i \sigma_i-\frac{1}{2}\beta J} \\
-        &\approx \sum_{\underline{\sigma}\in\mathcal{X}_N}\int_{-\infty}^{+\infty}dx e^{-\frac{1}{2}Nx^2+\sqrt{\beta J}\left(\sum_i \sigma_i\right)x+\beta B \sum_i \sigma_i} \\
-        &= \int_{-\infty}^{+\infty}dx e^{-\frac{1}{2}Nx^2} \sum_{\underline{\sigma}\in\mathcal{X}_N}e^{\sqrt{\beta J}\left(\sum_i \sigma_i\right)x+\beta B \sum_i \sigma_i-\frac{1}{2}\beta J}\\
-        &= \int_{-\infty}^{+\infty}dx e^{-\frac{1}{2}Nx^2} \left(\sum_{\sigma \in \{-1,1\}}e^{\sqrt{\beta J}\sigma x+\beta B \sigma}\right)^N\\
-        &=  \int_{-\infty}^{+\infty}dx e^{-\frac{1}{2}Nx^2+N\log\left(2\cosh(x\sqrt{\beta J}+\beta B)\right)}
-    \end{aligned}
+    \label{eq:curie_weiss_self_consistent}
+    m = \tanh(\beta J m + \beta B)
 \end{equation}
-Where the first approximation comes from the thermodynamic limit, where we only focus on terms which are $O(N)$ and ignore subleading terms in the exponential. Now, we can use the Laplace method to compute the integral:
+This equation is similar to the one we found for the Ising model in Equation~\ref{eq:ising}, however, this time we have a phase transition. In Figure~\ref{fig:curie_weiss_equation} we can see that, for different value of $\beta$, we can have one or three solutions to the equation. In the case of $B=0$, we can have one solution for $\beta < \beta_c$ and three solutions for $\beta > \beta_c$. The critical value of $\beta$ is given by:
 \begin{equation}
-    \begin{aligned}
-        \int_{-\infty}^{+\infty}dx e^{Nf(x)} \approx \sqrt{\frac{2\pi}{Nf''(x_0)}}e^{Nf(x_0)}\\
-    \end{aligned}
+    \beta_c = \frac{1}{J}
 \end{equation}
-Where $x_0$ is the maximum of $f(x)$, and $f''(x_0)$ is the second derivative of $f(x)$ at $x_0$. In our case:
-\begin{equation}
-    x_0 = \sqrt{\beta J}\tanh(x_0\sqrt{\beta J}+\beta B)
-\end{equation}
-Giving us an approximate solution for the partition function:
-\begin{equation}
-    Z \approx \sqrt{\frac{2\pi}{Nf''(x_0)}}e^{Nf(x_0)}
-\end{equation}
-From which we can derive the magnetization:
-\begin{equation}
-    m = \tanh(\beta(B+Jm))
-\end{equation}
-Which is the mean-field equation for the Curie-Weiss model.
+
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{curieweiss/rhs_lhs.pdf}
+        \caption{The left-hand side and right-hand side of Equation~\ref{eq:curie_weiss_self_consistent} for $B=0$ plotted for different values of $\beta$. Intersecting points correspond to solutions of the equation.}
+        \label{fig:curie_weiss_equation}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{curieweiss/m_vs_beta.pdf}
+        \caption{Solutions to Equation~\ref{eq:curie_weiss_self_consistent} with respect to the inverse temperature $\beta$ for $B=0$.}
+        \label{fig:curie_weiss_solutions}
+    \end{minipage}
+\end{figure}
