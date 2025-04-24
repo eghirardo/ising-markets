@@ -7,18 +7,17 @@
 In this section, we will first provide a brief introduction to the language of financial mathematics in continuous time, and then introduce the Black-Scholes model for option pricing.
 
 \subsection{Setting and no-arbitrage theory}
-\textcolor{red}{change to continuous time}\\s
-Let $\mathcal{T}$ be the set of trading times, and let $\Omega$ be the state space of the price of a stock. Let $\mathcal{P} = \{\mathcal{P}_t\}_{t\in\mathcal{T}}$ be a filtration on $\Omega$. On this setting, we can define a locally riskless asset $\{B(t)\}_{t\in\mathcal{T}}$, described by a $\mathcal{P}_t$-measurable stochastic process $\{r(t)\}_{t\in\mathcal{T}}$, which is the return of $B(t)$ at time $t$. The return is defined as:
+Let us assume we have a financial market on which a bond $B$ and a stock $S$ are traded. We will describe the dynamics of the price of each asset in a continuous time setting. We will assume that the bond $B$ has a deterministic return $r$:
 \begin{equation}
-    r(t) = \frac{B(t+1)-B(t)}{B(t)} \quad \forall t\in\mathcal{T}
+    \label{eq:bond}
+    dB(t) = r B(t) dt
 \end{equation}
-We can also define N risky assets as $\mathcal{P}_{t+1}$-measurable stochastic processes $\{S_i(t)\}_{t\in\mathcal{T}} \; i\in \{1,\dots,N\}$, which is the price of each asset at time $t$. Intuitively, the locally riskless asset is a bond, for which we know the return at time $t+1$ given the return at time $t$. The risky assets are stocks, for which we do not know the return at time $t+1$ given the return at time $t$.
-
-% fix to make it continous time!!
-
-% Let $\theta_j = \{\theta_j(t)\}_{t\in\mathcal{T}}$ be stochastic process representing the value of the position held in the j-th asset, which might be positive or negative (in the case of short selling).
-
-\textcolor{red}{TBA: definition of no arbitrage}
+On the other hand, we will assume that the stock $S$ follows a geometric Brownian motion:
+\begin{equation}
+    \label{eq:stock}
+    dS(t) = \mu S(t) dt + \sigma S(t) dW(t)
+\end{equation}
+Where $W(t)$ is a standard Brownian motion, $\mu$ is the drift, and $\sigma$ is the volatility of the stock. The drift $\mu$ is the expected return of the stock, and the volatility $\sigma$ is a measure of the uncertainty of the stock price.
 
 We can now go ahead and define what a european call option is.
 \begin{definition}
@@ -32,17 +31,80 @@ We can now go ahead and define what a european call option is.
     Where $S(t)$ is the price of the underlying asset at time $t$, $K$ is the strike price, and $T$ is the expiration date. The payoff is zero if the option is not exercised, and it is equal to the difference between the price of the underlying asset and the strike price if the option is exercised.
 \end{definition}
 
-A european put option is defined similarly, as the right to sell an asset at a specified price at a specified time.
+The question we want to answer is: what is the fair price of a european call option? In order to answer this question, we will need to introduce the concept of no-arbitrage. The idea is that if we can find a way to make a profit without any risk, then we can use this strategy to make money. This is not possible in a well-functioning market, so we will assume that there are no arbitrage opportunities.
+
+Let us define $C(t)$ as the price of a european call option with expiration $T$ and strike price $K$. We will then work on the market $\mathcal{M} = \{B(t),S(t),C(t)\}_{t\in\mathcal{T}}$, where $\mathcal{T}$ is the set of trading times. On this market, a portfolio $h(t) = \{h_B(t),h_S(t),h_C(t)\}$ is defined as the number of units of each asset held at time $t$. The value of the portfolio at time $t$ is given by:
+\begin{equation}
+    V^h(t) = h_B(t)B(t) + h_S(t)S(t) + h_C(t)C(t)
+\end{equation}
+Now, we can define the concepts of self-financing portfolio and arbitrage opportunity.
+\begin{definition}
+    A portfolio is said to be self-financing if the value process of the portfolio satisfies the following equation:
+    \begin{equation}
+        dV^h(t) = h_B(t)dB(t) + h_S(t)dS(t) + h_C(t)dC(t)
+    \end{equation}
+    This means that the change in the value of the portfolio is equal to the sum of the changes in the value of each asset, weighted by the number of units held in each asset. Intuitively, a self-financing portfolio is one in which the changes in the value of the portfolio are due to the changes in the value of the assets, and not due to any additional investments or withdrawals.
+\end{definition}
+\begin{definition}
+    An arbitrage opportunity is a self-financing portfolio $h(t)$ such that the following conditions hold:
+    \begin{enumerate}
+        \item $V^h(0) = 0$.
+        \item $P(V^h(T) \geq 0) = 1$.
+        \item $P(V^h(T) > 0) > 0$.
+    \end{enumerate}
+    Meaning that the portfolio has zero initial value, it is non-negative at time $T$, and it has a positive probability of being strictly positive at time $T$. Intuitively, an arbitrage opportunity is a way to make a sure profit without any initial investment.
+\end{definition}
+
+\begin{lemma}
+    \label{lem:risk_free}
+    Suppose that in an arbitrage-free market there exists a self-financing portfolio $h(t)$ such that $dV^h(t) = k V^h(t) dt$, where $k$ is a constant. Then, the return $k$ is equal to the risk-free rate $r$.
+\end{lemma}
+\begin{proof}
+    Assume WLOG $B(0) = 1$. Assume $V^h(0) > 0$ and $k>r$. Other cases are either equivalent or equivalent by reversing the position.
+    Let us construct a portfolio $h'(t)$ consisting of one unit of the self-financing portfolio $h(t)$ and $-V^h(0)$ units of the risk-free asset $B(t)$, such that:
+    \begin{equation}
+        V^{h'}(0) = V^h(0)-V^h(0) = 0
+    \end{equation}
+    And for $t>0$:
+    \begin{equation}
+        \begin{aligned}
+            V^{h'}(t) &= V^h(t) - V^h(0)B(t)\\
+            &= V^h(0)e^{kt} - V^h(0)e^{rt}\\
+            &= V^h(0)(e^{kt} - e^{rt}) > 0
+        \end{aligned}
+    \end{equation}
+    Which makes $h'(t)$ an arbitrage opportunity, which is a contradiction. Therefore, we must have $k = r$.
+\end{proof}
+% \textcolor{red}{change to continuous time}\\s
+% Let $\mathcal{T}$ be the set of trading times, and let $\Omega$ be the state space of the price of a stock. Let $\mathcal{P} = \{\mathcal{P}_t\}_{t\in\mathcal{T}}$ be a filtration on $\Omega$. On this setting, we can define a locally riskless asset $\{B(t)\}_{t\in\mathcal{T}}$, described by a $\mathcal{P}_t$-measurable stochastic process $\{r(t)\}_{t\in\mathcal{T}}$, which is the return of $B(t)$ at time $t$. The return is defined as:
+% \begin{equation}
+%     r(t) = \frac{B(t+1)-B(t)}{B(t)} \quad \forall t\in\mathcal{T}
+% \end{equation}
+% We can also define N risky assets as $\mathcal{P}_{t+1}$-measurable stochastic processes $\{S_i(t)\}_{t\in\mathcal{T}} \; i\in \{1,\dots,N\}$, which is the price of each asset at time $t$. Intuitively, the locally riskless asset is a bond, for which we know the return at time $t+1$ given the return at time $t$. The risky assets are stocks, for which we do not know the return at time $t+1$ given the return at time $t$.
+
+% % fix to make it continous time!!
+
+% % Let $\theta_j = \{\theta_j(t)\}_{t\in\mathcal{T}}$ be stochastic process representing the value of the position held in the j-th asset, which might be positive or negative (in the case of short selling).
+
+% \textcolor{red}{TBA: definition of no arbitrage}
+
+
+
+% A european put option is defined similarly, as the right to sell an asset at a specified price at a specified time.
 
 \subsection{The Black-Scholes model}
 \subsubsection{Assumptions}
-The Black-Scholes model is a mathematical model for the pricing of european options when $\mathcal{T}=[0,+\infty)$, introduced in \cite{black_scholes}. The assumptions for deriving the price of the option are:
+The Black-Scholes model is a mathematical model for the pricing of european options, introduced in \cite{black_scholes}. The assumptions for deriving the price of the option are:
 \begin{enumerate}
-    \item The locally riskless asset is known and constant over time: $r(t) = r \;\forall t\in\mathcal{T}$.
-    \item  \label{it:gbm}The risky asset follows a geometric Brownian motion, meaning that the price of the asset at time $t$ satisfies the SDE:
-    \begin{equation}
+    \item There exists a locally riskless asset with known and constant return, as we introduced it in Equation~\ref{eq:bond}: 
+    $$
+        dB(t) = r B(t) dt
+    $$
+    Where $r$ is the risk-free return.
+    \item  \label{it:gbm}The risky asset follows a geometric Brownian motion, as we untroduced it in Equation~\ref{eq:stock}:
+    $$
         dS(t) = \mu S(t) dt + \sigma S(t) dW(t)
-    \end{equation}
+    $$
     Where $W(t)$ is a standard Brownian motion, $\mu$ is the constant drift, and $\sigma$ is the volatility of the asset.
     \item The market is frictionless, meaning that there are no transaction costs, and the assets can be traded continuously.
     \item The asset pays no dividends.
@@ -51,11 +113,11 @@ The Black-Scholes model is a mathematical model for the pricing of european opti
 \end{enumerate}
 
 \subsubsection{Derivation}
-Let \( V(S,t) \) be the price of a derivative (e.g., a European call option) written on the underlying asset \( S(t) \).
+Let \( C(S,t) \) be the price of a European call option written on the underlying asset \( S(t) \).
 
-Applying Itô's Lemma to \( V(S,t) \), we have:
+Applying Itô's Lemma to \( C(S,t) \), we have:
 \[
-dV = \frac{\partial V}{\partial t} dt + \frac{\partial V}{\partial S} dS + \frac{1}{2} \frac{\partial^2 V}{\partial S^2} dS^2
+dC = \frac{\partial C}{\partial t} dt + \frac{\partial C}{\partial S} dS + \frac{1}{2} \frac{\partial^2 C}{\partial S^2} dS^2
 \]
 
 Substitute the dynamics of \( S(t) \):
@@ -68,42 +130,42 @@ dS^2 = (\sigma S)^2 dt = \sigma^2 S^2 dt
 
 Thus:
 \[
-dV = \frac{\partial V}{\partial t} dt + \frac{\partial V}{\partial S} (\mu S dt + \sigma S dW) + \frac{1}{2} \frac{\partial^2 V}{\partial S^2} \sigma^2 S^2 dt
+dC = \frac{\partial C}{\partial t} dt + \frac{\partial C}{\partial S} (\mu S dt + \sigma S dW) + \frac{1}{2} \frac{\partial^2 C}{\partial S^2} \sigma^2 S^2 dt
 \]
 
 Simplify:
 \[
-dV = \left( \frac{\partial V}{\partial t} + \mu S \frac{\partial V}{\partial S} + \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} \right) dt + \sigma S \frac{\partial V}{\partial S} dW
+dC = \left( \frac{\partial C}{\partial t} + \mu S \frac{\partial C}{\partial S} + \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 C}{\partial S^2} \right) dt + \sigma S \frac{\partial C}{\partial S} dW
 \]
 
-Now, construct a hedged portfolio \( \Pi = V - \Delta S \), where \( \Delta = \frac{\partial V}{\partial S} \). The change in the portfolio is:
+Now, construct a hedged portfolio \( \Pi = C - \Delta S \), where \( \Delta = \frac{\partial C}{\partial S} \). The change in the portfolio is:
 \[
-d\Pi = dV - \Delta dS
+d\Pi = dC - \Delta dS
 \]
 
 Substituting:
 \[
-d\Pi = \left( \frac{\partial V}{\partial t} + \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} \right) dt
+d\Pi = \left( \frac{\partial C}{\partial t} + \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 C}{\partial S^2} \right) dt
 \]
 
 Note that the \( dW \) terms cancel because:
 \[
-\sigma S \frac{\partial V}{\partial S} dW - \frac{\partial V}{\partial S} \sigma S dW = 0
+\sigma S \frac{\partial C}{\partial S} dW - \frac{\partial C}{\partial S} \sigma S dW = 0
 \]
 
-This portfolio is riskless, and by the no-arbitrage assumption, it must grow at the risk-free rate:
+This portfolio is riskless, and by Lemma~\ref{lem:risk_free}, it must grow at the risk-free rate:
 \[
-d\Pi = r \Pi dt = r(V - \Delta S) dt
+d\Pi = r \Pi dt = r(C - \Delta S) dt
 \]
 
 Equating both expressions for \( d\Pi \):
 \[
-\left( \frac{\partial V}{\partial t} + \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} \right) dt = r \left( V - S \frac{\partial V}{\partial S} \right) dt
+\left( \frac{\partial C}{\partial t} + \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 C}{\partial S^2} \right) dt = r \left( C - S \frac{\partial C}{\partial S} \right) dt
 \]
 
 Cancelling \( dt \) and rearranging terms:
 \[
-\frac{\partial V}{\partial t} + \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} + r S \frac{\partial V}{\partial S} - rV = 0
+\frac{\partial C}{\partial t} + \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 C}{\partial S^2} + r S \frac{\partial C}{\partial S} - rC = 0
 \]
 
 This is the Black-Scholes partial differential equation (PDE).
@@ -113,7 +175,7 @@ This is the Black-Scholes partial differential equation (PDE).
 The Black-Scholes formula for a European call option with strike price \( K \), time to maturity \( T - t \), and current underlying price \( S \) is:
 
 \[
-V(S,t) = S \Phi(d_1) - K e^{-r(T - t)} \Phi(d_2)
+C(S,t) = S \Phi(d_1) - K e^{-r(T - t)} \Phi(d_2)
 \]
 
 where:
