@@ -67,9 +67,66 @@ We will focus on the fully connected case in which \(J_{i,j}=\frac{J}{N} \; \for
     H(\underline{\sigma}) = -\frac{J}{N}\sum_{i,j}\sigma_i\sigma_j + \frac{\alpha}{N}\sum_{i=1}^N \sigma_i \left | \sum_{j=1}^N \sigma_j \right |
 \end{equation}
 
-\textcolor{red}{TBA: Analysis of the model}
+We will proceed in a similar way as in Section~\ref{sec:curie_weiss}, by introducing a combinatorial factor $\mathcal{N}(m)$ and taking the large $N$ limit.
+
+The partition function of the model is given by:
+\begin{equation}
+    \begin{aligned}
+        Z &= \sum_{\underline{\sigma}\in\mathcal{X}_N}e^{-\beta H(\underline{\sigma})}\\
+        &= \sum_{\underline{\sigma}\in\mathcal{X}_N}e^{-\beta\frac{J}{N}\sum_{i,j}\sigma_i\sigma_j + \beta\frac{\alpha}{N}\sum_{i=1}^N \sigma_i \left | \sum_{j=1}^N \sigma_j \right |}\\
+        &= \sum_{\underline{\sigma}\in\mathcal{X}_N}e^{-\beta\frac{J}{N}\left(\sum_{i}\sigma_i\right)^2 + \beta\frac{\alpha}{N}\sum_{i=1}^N \sigma_i \left | \sum_{j=1}^N \sigma_j \right |}\\
+    \end{aligned}
+\end{equation}
+Now, we can introduce the notation:
+\begin{equation}
+m(\underline{\sigma}) = \frac{1}{N}\sum_{i}\sigma_i
+\end{equation}
+Then, we can rewrite the hamiltonian as:
+
+\begin{equation}
+    H(\underline{\sigma}) =  - J N m^2(\underline{\sigma}) + \alpha N m(\underline{\sigma}) \left| m(\underline{\sigma}) \right|
+\end{equation}
+
+And the partition function becomes:
+\begin{equation}
+    \begin{aligned}
+        Z &= \sum_{\underline{\sigma}\in\mathcal{X}_N}e^{N\left(\beta J  m^2(\underline{\sigma})+\beta \alpha  m(\underline{\sigma}) \left| m(\underline{\sigma})\right|\right)}\\
+        &= \sum_{m}e^{N\left(\beta J  m^2+\beta \alpha  m \left| m\right|\right)}\mathcal{N}(m)\\
+        &= \sum_{m}e^{N\left(\beta J  m^2+\beta \alpha  m \left| m\right| + \frac{1}{N}\log \mathcal{N}(m)\right)}\\
+    \end{aligned}
+\end{equation}
+Where $\mathcal{N}(m)$ is the number of configurations with magnetization $m$. In Section~\ref{sec:curie_weiss}, we have seen that $S(m) :=\lim_{N\rightarrow\infty}\frac{1}{N}\log \mathcal{N}(m)$ is the Shannon entropy of a bernoulli distribution with probability $p = \frac{1+m}{2}$ and $q = \frac{1-m}{2}$.
+
+Then, in the large $N$ limit, we notice the following:
+\begin{itemize}
+    \item The increments of $m$ become infinitesimal, allowing us to treat the sum as an integral.
+    \item We can subtitute $\frac{1}{N}\log\mathcal{N}(m)$ with $S(m)$.
+\end{itemize}
+Then, we can rewrite the partition function as:
+\begin{equation}
+    Z \approx \int_{-1}^{1} dm e^{N\phi(m)}, \quad \text{where }
+    \phi(m) = \beta J m^2 + \alpha m |m| + S(m)
+\end{equation}
+
+We now aim to rewrite $\phi(m)$ in a more convenient form. First, we notice that:
+\begin{equation}
+    x|x| = x^2 (2\theta(x)-1)
+\end{equation}
+Where $\theta(x)$ is the Heaviside step function:
+\begin{equation}
+    \theta(x) = \begin{cases}
+        0 & \text{if } x < 0\\
+        1 & \text{if } x \geq 0
+    \end{cases}
+\end{equation}
+Then, we can rewrite $\phi(m)$ as:
+\begin{equation}
+    \phi(m) = \beta J m^2 + \alpha m^2 (2\theta(m)-1) + S(m)
+\end{equation}
+\textcolor{red}{finish analysis of the model}
 
 \section{Simulations of the Bornholdt model}
+\textcolor{red}{fix plots}\\
 We conducted an extensive numerical simulation of the Bornholdt model, employing a system consisting of 1024 spins arranged in a two-dimensional square lattice. The coupling constant was set to $J=1.0$, the external field parameter was $\alpha=4.0$, and the temperature of the system was defined as $T=1/\beta=1.5$. The simulation was carried out over a sufficiently large number of time steps to allow the results to be representative of the model's long-term dynamics.
 
 \subsection{Only fundamental traders}
@@ -77,7 +134,7 @@ We start by analysing the case in which all agents are fundamental traders, mean
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{constant_c_magnetization.png}
+    \includegraphics[width=0.9\textwidth]{constant_c_magnetization.pdf}
     \caption{Dynamics of the magnetization of the system with only fundamental traders.}
     \label{fig:fundamental_traders}
 \end{figure}
@@ -87,7 +144,7 @@ The simulations indicate that the initial distribution of agents' strategies has
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{c_values.png}
+    \includegraphics[width=0.9\textwidth]{c_values.pdf}
     \caption{Dynamics of agent's strategy based on different starting distributions.}
     \label{fig:strategies}
 \end{figure}
@@ -99,7 +156,7 @@ In addition to examining the magnetization (i.e., the price), it is also insight
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{magnetization.png}
+    \includegraphics[width=0.9\textwidth]{magnetization.pdf}
     \caption{Dynamics of the magnetization of the system.}
     \label{fig:magnetization}
 \end{figure}
@@ -124,7 +181,7 @@ The resulting time-series of the returns is shown in figure \ref{fig:returns}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{returns.png}
+    \includegraphics[width=0.9\textwidth]{returns.pdf}
     \caption{Time-series of the returns of the asset.}
     \label{fig:returns}
 \end{figure}
@@ -139,16 +196,16 @@ To further investigate this property, we compare the returns to a normal distrib
 Additionally, we perform a statistical test to formally assess whether the returns follow a normal distribution. Specifically, we use the Shapiro-Wilk test, which tests the null hypothesis that the data is drawn from a normal distribution. The results of the test yield a p-value on the order of $10^{-192}$. Such an extremely small p-value indicates that we can reject the null hypothesis with extremely high confidence, confirming that the returns are not normally distributed. Additionally, we compute the kurtosis of the returns, which is approximately 24.2. This value indicates an extremely leptokurtic distribution, suggesting a very high likelihood of outliers.
 \begin{figure}[H]
     \centering
-    \begin{minipage}{0.45\textwidth}
+    \begin{minipage}[T]{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{distribution_returns.png}
+        \includegraphics[width=\textwidth]{distribution_returns.pdf}
         \caption{Distribution of the returns of the asset.}
         \label{fig:returns_distribution}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.45\textwidth}
+    \begin{minipage}[T]{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{cumulative_distribution.png}
+        \includegraphics[width=\textwidth]{cumulative_distribution.pdf}
         \caption{Cumulative distribution of the returns of the asset.}
         \label{fig:cumulative_returns_distribution}
     \end{minipage}
@@ -165,16 +222,16 @@ The autocorrelation function is computed for lags $k=1,2,\ldots,100$ and is show
 
 \begin{figure}[H]
     \centering
-    \begin{minipage}{0.45\textwidth}
+    \begin{minipage}[T]{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{qqplot-returns.png}
+        \includegraphics[width=\textwidth]{qqplot-returns.pdf}
         \caption{QQ-plot of the returns against a normal distribution.}
         \label{fig:qqplot}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.45\textwidth}
+    \begin{minipage}[T]{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{autocorrelation.png}
+        \includegraphics[width=\textwidth]{autocorrelation.pdf}
         \caption{Autocorrelation function of the returns.}
         \label{fig:autocorrelation}
     \end{minipage}
@@ -199,6 +256,6 @@ The key observation here is that, unlike in a geometric Brownian motion, the pri
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{lattices/same_magnetization/magnetization.png}
-    \caption{Dynamics of the magnetization of the system. The green lines represent the times at which the snapshots in figure \ref{fig:lattices_m100} were taken.}
+    \caption{Dynamics of the magnetization of the system. The green lines represent the times at which the snapshots in figure \ref{fig:lattices_m100} were taken.} \textcolor{red}{fix plot}
     \label{fig:magnetization_m100}
 \end{figure}
