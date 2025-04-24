@@ -106,7 +106,9 @@ Then, we can rewrite the partition function as:
 \begin{equation}
     Z \approx \int_{-1}^{1} dm e^{N\phi(m)}, \quad \text{where }
     \phi(m) = \beta J m^2 + \alpha m |m| + S(m)
+    \label{eq:bornholdt_phi}
 \end{equation}
+
 
 We now aim to rewrite $\phi(m)$ in a more convenient form. First, we notice that:
 \begin{equation}
@@ -119,14 +121,46 @@ Where $\theta(x)$ is the Heaviside step function:
         1 & \text{if } x \geq 0
     \end{cases}
 \end{equation}
+Which we can write as:
+\begin{equation}
+    \theta(x) = \int_{-\infty}^{x} \delta(t) dt
+\end{equation}
 Then, we can rewrite $\phi(m)$ as:
 \begin{equation}
     \phi(m) = \beta J m^2 + \alpha m^2 (2\theta(m)-1) + S(m)
 \end{equation}
-\textcolor{red}{finish analysis of the model}
+Without going into the technical details, writing $\phi(m)$ in this way allows us to take its weak derivative and obtain the saddle point equation:
+\begin{equation}
+    \begin{gathered}
+        \frac{d \phi(m)}{d m} = 0\\
+        \implies 2\beta J m - 2 \alpha \beta m^2 \delta(m) - 4 \alpha \beta m \theta(m) + 2\alpha \beta m + \frac{1}{2} \log \frac{1-m}{1+m} = 0\\
+        \implies 2\beta J m - 4 \alpha \beta m \theta(m) + 2\alpha \beta m = \arctanh(m)\\
+    \end{gathered}
+\end{equation}
+From which we get the self-consistent equation:
+\begin{equation}
+    m = \tanh\left(2\beta J m - 4 \alpha \beta m \theta(m) + 2\alpha \beta m\right)
+    \label{eq:bornholdt_self_consistent}
+\end{equation}
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{bornholdt/bornholdt_phi.pdf}
+        \caption{The function $\phi(m)$ defined in Equation~\ref{eq:bornholdt_phi} for different values of $\beta$, with $J=1$ and $\alpha=1$.}
+        \label{fig:bornholdt_phi}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{bornholdt/bornholdt_rhs_lhs.pdf}
+        \caption{The left-hand side and right-hand side of Equation~\ref{eq:bornholdt_self_consistent} for $J=1$ and $\alpha=1$. Intersecting points correspond to solutions of the equation.}
+        \label{fig:bornholdt_rhs_lhs}
+    \end{minipage}
+\end{figure}
 
 \section{Simulations of the Bornholdt model}
-\textcolor{red}{fix plots}\\
 We conducted an extensive numerical simulation of the Bornholdt model, employing a system consisting of 1024 spins arranged in a two-dimensional square lattice. The coupling constant was set to $J=1.0$, the external field parameter was $\alpha=4.0$, and the temperature of the system was defined as $T=1/\beta=1.5$. The simulation was carried out over a sufficiently large number of time steps to allow the results to be representative of the model's long-term dynamics.
 
 \subsection{Only fundamental traders}
@@ -256,6 +290,6 @@ The key observation here is that, unlike in a geometric Brownian motion, the pri
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{lattices/same_magnetization/magnetization.pdf}
-    \caption{Dynamics of the magnetization of the system. The green lines represent the times at which the snapshots in figure \ref{fig:lattices_m100} were taken.} \textcolor{red}{fix plot}
+    \caption{Dynamics of the magnetization of the system. The green lines represent the times at which the snapshots in figure \ref{fig:lattices_m100} were taken.}
     \label{fig:magnetization_m100}
 \end{figure}
