@@ -3,10 +3,9 @@
 
 \section{Financial mathematics: option pricing}
 \label{sec:financial_background}
-\textcolor{red}{to be expanded: introduction}\\
 In this section, we will first provide a brief introduction to the language of financial mathematics in continuous time, and then introduce the Black-Scholes model for option pricing.
 
-\subsection{Setting and no-arbitrage theory}
+\subsection{Setting}
 Let us assume we have a financial market on which a bond $B$ and a stock $S$ are traded. We will describe the dynamics of the price of each asset in a continuous time setting. We will assume that the bond $B$ has a deterministic return $r$:
 \begin{equation}
     \label{eq:bond}
@@ -17,9 +16,9 @@ On the other hand, we will assume that the stock $S$ follows a geometric Brownia
     \label{eq:stock}
     dS(t) = \mu S(t) dt + \sigma S(t) dW(t)
 \end{equation}
-Where $W(t)$ is a standard Brownian motion, $\mu$ is the drift, and $\sigma$ is the volatility of the stock. The drift $\mu$ is the expected return of the stock, and the volatility $\sigma$ is a measure of the uncertainty of the stock price.
+Where $W(t)$ is a standard Brownian motion, $\mu$ is the drift, and $\sigma$ is the volatility. The drift $\mu$ is the expected return of the stock, and the volatility $\sigma$ is a measure of the uncertainty of the stock price.
 
-We can now go ahead and define what a european call option is.
+On this setting, we can go ahead and define what a european call option is:
 \begin{definition}
     A european call option is a contract that gives the holder the right, but not the obligation, to buy an asset at a specified price (the strike price) at a specified time (the expiration date). The payoff of a european call option at time $t$ is given by:
     \begin{equation}
@@ -31,13 +30,18 @@ We can now go ahead and define what a european call option is.
     Where $S(t)$ is the price of the underlying asset at time $t$, $K$ is the strike price, and $T$ is the expiration date. The payoff is zero if the option is not exercised, and it is equal to the difference between the price of the underlying asset and the strike price if the option is exercised.
 \end{definition}
 
-The question we want to answer is: what is the fair price of a european call option? In order to answer this question, we will need to introduce the concept of no-arbitrage. The idea is that if we can find a way to make a profit without any risk, then we can use this strategy to make money. This is not possible in a well-functioning market, so we will assume that there are no arbitrage opportunities.
+The question we want to answer is: what is the fair price of a european call option? Let us define $C(t)$ as the price of a european call option with expiration $T$ and strike price $K$. We will then work on the market $\mathcal{M} = \{B(t),S(t),C(t)\}_{t\in\mathcal{T}}$, where $\mathcal{T}$ is the set of trading times and $B(t)$ and $S(t)$ as defined above. Formally, the question we are asking is what is the fair value of $C(t)$? In order to answer this question, we will introduce no-arbitrage pricing.
 
-Let us define $C(t)$ as the price of a european call option with expiration $T$ and strike price $K$. We will then work on the market $\mathcal{M} = \{B(t),S(t),C(t)\}_{t\in\mathcal{T}}$, where $\mathcal{T}$ is the set of trading times. On this market, a portfolio $h(t) = \{h_B(t),h_S(t),h_C(t)\}$ is defined as the number of units of each asset held at time $t$. The value of the portfolio at time $t$ is given by:
-\begin{equation}
-    V^h(t) = h_B(t)B(t) + h_S(t)S(t) + h_C(t)C(t)
-\end{equation}
-Now, we can define the concepts of self-financing portfolio and arbitrage opportunity.
+\subsection{No arbitrage pricing}
+On the market $\mathcal{M} = \{B(t),S(t),C(t)\}_{t\in\mathcal{T}}$, we define a portfolio $h(t) = [h_B(t),h_S(t),h_C(t)]$, where each $h_i(t), i\in \{B,S,C\}$ is the number of units of asset $i$ held at time $t$. 
+\begin{definition}
+    Given a portfolio $h(t)$, its value process $V(t)$ is given by:
+    \begin{equation}
+        V^h(t) = h_B(t)B(t) + h_S(t)S(t) + h_C(t)C(t), \quad \forall t\in\mathcal{T}
+    \end{equation}
+    The value process is then the total value of the portfolio at each time $t$.
+\end{definition}
+
 \begin{definition}
     A portfolio is said to be self-financing if the value process of the portfolio satisfies the following equation:
     \begin{equation}
@@ -54,18 +58,19 @@ Now, we can define the concepts of self-financing portfolio and arbitrage opport
     \end{enumerate}
     Meaning that the portfolio has zero initial value, it is non-negative at time $T$, and it has a positive probability of being strictly positive at time $T$. Intuitively, an arbitrage opportunity is a way to make a sure profit without any initial investment.
 \end{definition}
+We will assume that the market $\mathcal{M}(t)$ is arbitrage free, meaning that there are no arbitrage opportunities on the market at any $t\in\mathcal{T}$. We introduce one last lemma before moving to the pricing of european call options.
 
 \begin{lemma}
     \label{lem:risk_free}
     Suppose that in an arbitrage-free market there exists a self-financing portfolio $h(t)$ such that $dV^h(t) = k V^h(t) dt$, where $k$ is a constant. Then, the return $k$ is equal to the risk-free rate $r$.
 \end{lemma}
 \begin{proof}
-    Assume WLOG $B(0) = 1$. Assume $V^h(0) > 0$ and $k>r$. Other cases are either equivalent or equivalent by reversing the position.
+    Assume WLOG $B(0) = 1$. Assume $V^h(0) > 0$ and $k>r$. Other cases are either equivalent or equivalent by reversing the portfolio position.
     Let us construct a portfolio $h'(t)$ consisting of one unit of the self-financing portfolio $h(t)$ and $-V^h(0)$ units of the risk-free asset $B(t)$, such that:
     \begin{equation}
         V^{h'}(0) = V^h(0)-V^h(0) = 0
     \end{equation}
-    And for $t>0$:
+    At $t>0$:
     \begin{equation}
         \begin{aligned}
             V^{h'}(t) &= V^h(t) - V^h(0)B(t)\\
@@ -95,22 +100,42 @@ Now, we can define the concepts of self-financing portfolio and arbitrage opport
 \subsection{The Black-Scholes model}
 \subsubsection{Assumptions}
 The Black-Scholes model is a mathematical model for the pricing of european options, introduced in \cite{black_scholes}. The assumptions for deriving the price of the option are:
-\begin{enumerate}
-    \item There exists a locally riskless asset with known and constant return, as we introduced it in Equation~\ref{eq:bond}: 
-    $$
-        dB(t) = r B(t) dt
-    $$
-    Where $r$ is the risk-free return.
-    \item  \label{it:gbm}The risky asset follows a geometric Brownian motion, as we untroduced it in Equation~\ref{eq:stock}:
+\begin{assumption}
+    There exists a locally riskless asset with known and constant return, as we introduced it in Equation~\ref{eq:bond}: 
+        $$
+            dB(t) = r B(t) dt
+        $$
+        Where $r$ is the risk-free return.
+\end{assumption}
+
+\begin{assumption}
+    \label{ass:gbm}The risky asset follows a geometric Brownian motion, as we untroduced it in Equation~\ref{eq:stock}:
     $$
         dS(t) = \mu S(t) dt + \sigma S(t) dW(t)
     $$
     Where $W(t)$ is a standard Brownian motion, $\mu$ is the constant drift, and $\sigma$ is the volatility of the asset.
-    \item The market is frictionless, meaning that there are no transaction costs, and the assets can be traded continuously.
-    \item The asset pays no dividends.
-    \item It is possible to short-sell the asset without any restrictions or penalties.
-    \item It is possible to borrow a fraction of the security at the risk-free rate.
-\end{enumerate}
+\end{assumption}
+
+\begin{assumption}
+    The market $\mathcal{M}(t)$ is arbitrage-free.
+\end{assumption}
+
+\begin{assumption}
+    The market is frictionless, meaning that there are no transaction costs, and the assets can be traded continuously.
+\end{assumption}
+
+\begin{assumption}
+    The stock $S(t)$ pays no dividends.
+\end{assumption}
+
+\begin{assumption}
+    It is possible to short-sell the asset without any restrictions or penalties.
+\end{assumption}
+
+\begin{assumption}
+    It is possible to borrow any fraction of the security at the risk-free rate.
+\end{assumption}
+
 
 \subsubsection{Derivation}
 Let \( C(S,t) \) be the price of a European call option written on the underlying asset \( S(t) \).
@@ -168,7 +193,7 @@ Cancelling \( dt \) and rearranging terms:
 \frac{\partial C}{\partial t} + \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 C}{\partial S^2} + r S \frac{\partial C}{\partial S} - rC = 0
 \]
 
-This is the Black-Scholes partial differential equation (PDE).
+This is the Black-Scholes partial differential equation.
 
 \subsubsection{Formula}
 
@@ -187,7 +212,7 @@ d_2 = d_1 - \sigma \sqrt{T - t}
 and \( \Phi(\cdot) \) is the cumulative distribution function of the standard normal distribution.
 
 \subsection{Discussion}
-The Black-Scholes model relies on several key assumptions, one of which is that the price of the underlying asset follows a geometric Brownian motion with constant volatility. While this assumption is mathematically convenient and allows for an analytical solution to the pricing problem, it does not always align with empirical observations of financial markets.
+The Black-Scholes model relies on several key assumptions, one of which is Assumption~\ref{ass:gbm}: the price of the underlying asset follows a geometric Brownian motion with constant volatility. While this assumption is mathematically convenient and allows for an analytical solution to the pricing problem, it does not always align with empirical observations of financial markets.
 
 In practice, the distribution of asset returns often exhibits fat tails, meaning that extreme events (large positive or negative returns) occur more frequently than predicted by a normal distribution. Furthermore, returns are not always independent over time; they often exhibit autocorrelation, which violates the assumption of independent increments in the geometric Brownian motion.
 
