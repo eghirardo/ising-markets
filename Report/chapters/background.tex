@@ -206,7 +206,7 @@ C(S,t) = S \Phi(d_1) - K e^{-r(T - t)} \Phi(d_2)
 where:
 \[
 d_1 = \frac{\ln(S/K) + (r + \frac{1}{2} \sigma^2)(T - t)}{\sigma \sqrt{T - t}}, \quad
-d_2 = d_1 - \sigma \sqrt{T - t}
+d_2 = \frac{\ln(S/K) + (r - \frac{1}{2} \sigma^2)(T - t)}{\sigma \sqrt{T - t}}
 \]
 
 and \( \Phi(\cdot) \) is the cumulative distribution function of the standard normal distribution.
@@ -228,7 +228,7 @@ In this section, we introduce the Ising model as an example of model driven by t
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{2D_ising_model_on_lattice.svg.png}
+    \includegraphics[width=0.5\textwidth]{2D_ising_model_on_lattice.pdf}
     \caption{The Ising model on a 2D lattice.}
     \label{fig:ising_model}
 \end{figure}
@@ -268,7 +268,7 @@ Since each spin is connected to its nearest neighbors, we can write:
 \begin{equation}
     Z =  \sum_{\underline{\sigma}\in\mathcal{X}_N}e^{\beta\sum_n\sigma_n\sigma_{n+1}}
 \end{equation}
-Let us define $\tau_n = \sigma_{n-1}\sigma_{n} \implies \sigma_n = \tau_n\tau_{n-1}\dots\tau_2\sigma_1$. Then, we can write:
+Let us define $\tau_n = \sigma_{n-1}\sigma_{n}$. Then, $\sigma_n = \tau_n\tau_{n-1}\dots\tau_2\sigma_1$, which means that we can write:
 \begin{equation}
     \begin{gathered}
     Z =  \sum_{\sigma_1\in\{-1,1\}}\sum_{\tau_2,\dots\tau_n}e^{\beta\sum_n\tau_n}
@@ -398,7 +398,7 @@ Now, we recall the definition of the Shannon entropy:
     The Shannon entropy measures the amount of uncertainty or information in the distribution.
 \end{definition}
 
-And we notice that $S(m)$ is the Shannon entropy of a bernoulli distribution with probability $p = \frac{1+m}{2}$ and $q = \frac{1-m}{2}$.
+And we notice that $S(m)$ is the Shannon entropy of a Bernoulli distribution (binary random variable) with probability $p = \frac{1+m}{2}$ and $q = \frac{1-m}{2}$.
 
 Now, in the large $N$ limit, we notice the following:
 \begin{itemize}
@@ -440,7 +440,7 @@ This equation is similar to the one we found for the Ising model in Equation~\re
     \beta_c = \frac{1}{J}
 \end{equation}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \begin{minipage}[t]{0.45\textwidth}
         \centering

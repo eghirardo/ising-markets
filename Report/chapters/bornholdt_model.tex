@@ -175,7 +175,7 @@ From which we get the self-consistent equation:
 \end{figure}
 
 \section{Simulations of the Bornholdt model}
-We conducted an extensive numerical simulation of the Bornholdt model, employing a system consisting of 1024 spins arranged in a two-dimensional square lattice. The coupling constant was set to $J=1.0$, the external field parameter was $\alpha=4.0$, and the temperature of the system was defined as $T=1/\beta=1.5$. The simulation was carried out over a sufficiently large number of time steps to allow the results to be representative of the model's long-term dynamics.
+We conducted a numerical simulation of the Bornholdt model, employing a system consisting of 1024 spins arranged in a two-dimensional square lattice. The coupling constant was set to $J=1.0$, the external field parameter was $\alpha=4.0$, and the temperature of the system was defined as $T=1/\beta=1.5$. The simulation was carried out over a sufficiently large number of time steps to allow the results to be representative of the model's long-term dynamics.
 
 \subsection{Only fundamental traders}
 We start by analysing the case in which all agents are fundamental traders, meaning that they all follow the same strategy. In this case, we set $C_i(t) = 1$ for all agents and all times. The results of the simulation are shown in figure \ref{fig:fundamental_traders}. As expected, the system is stuck in a noisy state in which the magnetization fluctuates between low positive and negative values.
@@ -241,7 +241,8 @@ The analysis of the distribution of the returns, as illustrated in figures \ref{
 
 To further investigate this property, we compare the returns to a normal distribution using a QQ-plot, shown in figure \ref{fig:qqplot}. The QQ-plot clearly demonstrates significant deviations from the straight line that would be expected if the returns were normally distributed. These deviations, particularly in the tails, confirm the presence of fat tails in the distribution.
 
-Additionally, we perform a statistical test to formally assess whether the returns follow a normal distribution. Specifically, we use the Shapiro-Wilk test, which tests the null hypothesis that the data is drawn from a normal distribution. The results of the test yield a p-value on the order of $10^{-192}$. Such an extremely small p-value indicates that we can reject the null hypothesis with extremely high confidence, confirming that the returns are not normally distributed. Additionally, we compute the kurtosis of the returns, which is approximately 24.2. This value indicates an extremely leptokurtic distribution, suggesting a very high likelihood of outliers.
+Additionally, we perform a statistical test to formally assess whether the returns follow a normal distribution. Specifically, we use the Shapiro-Wilk test, which tests the null hypothesis that the data is drawn from a normal distribution. The results of the test yield a p-value on the order of $10^{-192}$. Such an extremely small p-value indicates that we can reject the null hypothesis with extremely high confidence, confirming that the returns are not normally distributed. Additionally, we compute the kurtosis of the returns, which is approximately 24.2. This value indicates an extremely leptokurtic distribution, suggesting a very high likelihood of outliers. \cite{kurtosis_skewness} shows that stocks in the Dow Jones Industrial Average show kurtosis values ranging from 1.08 to 24.13. This means we could see the price movements of the Bornholdt model as a very volatile stock.
+
 \begin{figure}[H]
     \centering
     \begin{minipage}[T]{0.45\textwidth}
