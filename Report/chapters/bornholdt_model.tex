@@ -27,7 +27,7 @@ Where $h_i(t)$ is the local field of agent $i$ at time $t$:
 \end{equation}
 Where $J_{i j}$ is the coupling between agents $i$ and $j$, $\sigma_j$ is the agent's action at $t$, $C_i(t)$ is the strategy of $i$ at time $t$, and $\alpha$ is a parameter. The first term in the local field pushes the agent to follow the trend of spins in their proximity (do what your neighbors do), while the second term pushes the agent to follow the minority (do what the minority does), assuming the strategy $C_i(t)$ is positive. 
 If we consider the case in which $C_i(t) = 1\;\forall i, t$, we have that each trader follows both a momentum and a mean-reversion strategy simultaneously. This leads to near-vanishing magnetization even for temperatures below the critical temperature. 
-We will focus on the more interesting and realistic case in which the strategies are updated at each time by each agent. Specifically, we will assume that a trader in the majority will try to switch to the minority strategy and thus adopt $C_i(t+1) = +1$, while a trader in the minority will try to switch to the majority strategy and thus adopt $C_i(t+1) = -1$. This is a reasonable assumption, as traders in the minority are likely to be more cautious and risk-averse, while traders in the majority are likely to be more aggressive and willing to take risks. This dynamics is the described by:
+We will focus on the more interesting and realistic case in which the strategies are updated at each time by each agent. Specifically, we will assume that a trader in the majority will try to switch to the minority strategy and thus adopt $C_i(t+1) = +1$, while a trader in the minority will try to switch to the majority strategy and thus adopt $C_i(t+1) = -1$. This is a reasonable assumption, as traders in the minority are likely to be more cautious and risk-averse, while traders in the majority are likely to be more aggressive and willing to take risks. This dynamics is then described by:
 \begin{equation}
     C_i(t+1) = \begin{cases}
         +1 & \text{if} \quad \alpha\sigma_i(t) \sum_{j=1}^N \sigma_j(t)> 0\\
@@ -41,7 +41,8 @@ Rearranging the equation, we can write:
         -C_i(t) & \text{otherwise}
     \end{cases}
 \end{equation}
-Now, we can take one extra step and assume that the strategy update is done instantaneously, so that we can write:
+Now, we can take one extra step and assume that the strategy update is done instantaneously, so that we can  write:
+\textcolor{red}{maybe specify abuse of notation here?}
 \begin{equation}
     C_i(t) = \begin{cases}
         +C_i(t) & \text{if} \quad \alpha\sigma_i(t)C_i(t) \sum_{j=1}^N \sigma_j(t)> 0\\
@@ -234,7 +235,7 @@ The resulting time-series of the returns is shown in figure \ref{fig:returns}.
     \label{fig:returns}
 \end{figure}
 
-From a financial perspective, we are interested in checking wether the returns exhibit the statistical properties of real financial data, namely fat tails and autocorrelation, as noted in \cite{bouchaud2000theory}.
+From a financial perspective, we are interested in checking whether the returns exhibit the statistical properties of real financial data, namely fat tails and autocorrelation, as noted in \cite{bouchaud2000theory}.
 
 \subsubsection{Fat tails}
 The analysis of the distribution of the returns, as illustrated in figures \ref{fig:returns_distribution} and \ref{fig:cumulative_returns_distribution}, provides strong evidence that the returns exhibit fat tails. This characteristic is a hallmark of financial time-series and indicates that extreme events (large positive or negative returns) occur more frequently than would be expected under a normal distribution.
