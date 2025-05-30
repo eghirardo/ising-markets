@@ -42,7 +42,6 @@ Rearranging the equation, we can write:
     \end{cases}
 \end{equation}
 Now, we can take one extra step and assume that the strategy update is done instantaneously, so that we can  write:
-\textcolor{red}{maybe specify abuse of notation here?}
 \begin{equation}
     C_i(t) = \begin{cases}
         +C_i(t) & \text{if} \quad \alpha\sigma_i(t)C_i(t) \sum_{j=1}^N \sigma_j(t)> 0\\
@@ -109,7 +108,20 @@ Then, we can rewrite the partition function as:
     \phi(m) = \beta J m^2 + \alpha m |m| + S(m)
     \label{eq:bornholdt_phi}
 \end{equation}
-
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{bornholdt/bornholdt_phi.pdf}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{bornholdt/bornholdt_phi_negative_alpha.pdf}
+    \end{minipage}
+    \caption{The function $\phi(m)$ defined in Equation~\ref{eq:bornholdt_phi} for different values of $\beta$, with $J=1$ and $\alpha=1$ (left) and $\alpha=-1$ (right).}
+    \label{fig:bornholdt_phi}
+\end{figure}
 
 We now aim to rewrite $\phi(m)$ in a more convenient form. First, we notice that:
 \begin{equation}
@@ -148,21 +160,6 @@ From which we get the self-consistent equation:
     \centering
     \begin{minipage}[t]{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{bornholdt/bornholdt_phi.pdf}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{bornholdt/bornholdt_phi_negative_alpha.pdf}
-    \end{minipage}
-    \caption{The function $\phi(m)$ defined in Equation~\ref{eq:bornholdt_phi} for different values of $\beta$, with $J=1$ and $\alpha=1$ (left) and $\alpha=-1$ (right).}
-    \label{fig:bornholdt_phi}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \begin{minipage}[t]{0.45\textwidth}
-        \centering
         \includegraphics[width=\textwidth]{bornholdt/bornholdt_rhs_lhs.pdf}
 
     \end{minipage}
@@ -174,6 +171,23 @@ From which we get the self-consistent equation:
     \caption{The left-hand side and right-hand side of Equation~\ref{eq:bornholdt_self_consistent} for $J=1$ and $\alpha=1$ (left) and $\alpha=-1$ (right). Intersecting points correspond to solutions of the equation.}
     \label{fig:bornholdt_rhs_lhs}
 \end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{bornholdt/bornholdt_phase_transition_alpha1.pdf}
+
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{bornholdt/bornholdt_phase_transition_alpha-1.pdf}
+    \end{minipage}
+    \caption{Solutions of Equation~\ref{eq:bornholdt_self_consistent} for different values of $\beta$, with $J=1$ and $\alpha=1$ (left) and $\alpha=-1$ (right). The critical temperature is indicated by the dashed line.}
+    \label{fig:bornholdt_phase_transition}
+\end{figure}
+
 
 \section{Simulations of the Bornholdt model}
 We conducted a numerical simulation of the Bornholdt model, employing a system consisting of 1024 spins arranged in a two-dimensional square lattice. The coupling constant was set to $J=1.0$, the external field parameter was $\alpha=4.0$, and the temperature of the system was defined as $T=1/\beta=1.5$. The simulation was carried out over a sufficiently large number of time steps to allow the results to be representative of the model's long-term dynamics.
