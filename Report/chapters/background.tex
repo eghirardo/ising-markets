@@ -6,7 +6,7 @@
 In this section, we will first provide a brief introduction to the language of financial mathematics in continuous time, and then introduce the Black-Scholes model for option pricing.
 
 \subsection{Setting}
-Let us assume we have a financial market on which a bond $B$ and a stock $S$ are traded. We will describe the dynamics of the price of each asset in a continuous time setting. We will assume that the bond $B$ has a deterministic return $r$:
+Let us assume we have a financial market where a bond $B$ and a stock $S$ are traded. We will describe the dynamics of the price of each asset in a continuous time setting. We will assume that the bond $B$ has a deterministic return $r$:
 \begin{equation}
     \label{eq:bond}
     dB(t) = r B(t) dt
@@ -18,9 +18,9 @@ On the other hand, we will assume that the stock $S$ follows a geometric Brownia
 \end{equation}
 Where $W(t)$ is a standard Brownian motion, $\mu$ is the drift, and $\sigma$ is the volatility. The drift $\mu$ is the expected return of the stock, and the volatility $\sigma$ is a measure of the uncertainty of the stock price.
 
-On this setting, we can go ahead and define what a european call option is:
+In this setting, we can define what a European call option is:
 \begin{definition}
-    A european call option is a contract that gives the holder the right, but not the obligation, to buy an asset at a specified price (the strike price) at a specified time (the expiration date). The payoff of a european call option at time $t$ is given by:
+    A European call option is a contract that gives the holder the right, but not the obligation, to buy an asset at a specified price (the strike price) at a specified time (the expiration date). The payoff of a European call option at time $t$ is given by:
     \begin{equation}
         X(t) = \begin{cases}
             max(S(t)-K,0) & \text{if } t = T\\
@@ -30,12 +30,12 @@ On this setting, we can go ahead and define what a european call option is:
     Where $S(t)$ is the price of the underlying asset at time $t$, $K$ is the strike price, and $T$ is the expiration date. The payoff is zero if the option is not exercised, and it is equal to the difference between the price of the underlying asset and the strike price if the option is exercised.
 \end{definition}
 
-The question we want to answer is: what is the fair price of a european call option? Let us define $C(t)$ as the price of a european call option with expiration $T$ and strike price $K$. We will then work on the market $\mathcal{M} = \{B(t),S(t),C(t)\}_{t\in\mathcal{T}}$, where $\mathcal{T}$ is the set of trading times and $B(t)$ and $S(t)$ as defined above. Formally, the question we are asking is what is the fair value of $C(t)$? In order to answer this question, we will introduce no-arbitrage pricing.
+The question we want to answer is: what is the fair price of a European call option? Let us define $C(t)$ as the price of a European call option with expiration $T$ and strike price $K$. We will then work on the market $\mathcal{M} = \{B(t),S(t),C(t)\}_{t\in\mathcal{T}}$, where $\mathcal{T}$ is the set of trading times and $B(t)$ and $S(t)$ as defined above. Formally, the question we are asking is what is the fair value of $C(t)$? In order to answer this question, we will introduce no-arbitrage pricing.
 
 \subsection{No arbitrage pricing}
 On the market $\mathcal{M} = \{B(t),S(t),C(t)\}_{t\in\mathcal{T}}$, we define a portfolio $h(t) = [h_B(t),h_S(t),h_C(t)]$, where each $h_i(t), i\in \{B,S,C\}$ is the number of units of asset $i$ held at time $t$. 
 \begin{definition}
-    Given a portfolio $h(t)$, its value process $V(t)$ is given by:
+    Given a portfolio $h(t)$, its value process $V^h(t)$ is given by:
     \begin{equation}
         V^h(t) = h_B(t)B(t) + h_S(t)S(t) + h_C(t)C(t), \quad \forall t\in\mathcal{T}
     \end{equation}
@@ -56,16 +56,17 @@ On the market $\mathcal{M} = \{B(t),S(t),C(t)\}_{t\in\mathcal{T}}$, we define a 
         \item $P(V^h(T) \geq 0) = 1$.
         \item $P(V^h(T) > 0) > 0$.
     \end{enumerate}
-    Meaning that the portfolio has zero initial value, it is non-negative at time $T$, and it has a positive probability of being strictly positive at time $T$. Intuitively, an arbitrage opportunity is a way to make a sure profit without any initial investment.
+    Where $P(\cdot)$ is the probability measure on the market $\mathcal{M}(t)$.
+    This means that the portfolio has zero initial value, it is non-negative at time $T$, and it has a positive probability of being strictly positive at time $T$. Intuitively, an arbitrage opportunity is a way to make a sure profit without any initial investment.
 \end{definition}
-We will assume that the market $\mathcal{M}(t)$ is arbitrage free, meaning that there are no arbitrage opportunities on the market at any $t\in\mathcal{T}$. We introduce one last lemma before moving to the pricing of european call options.
+We will assume that the market $\mathcal{M}(t)$ is arbitrage free, meaning that there are no arbitrage opportunities on the market at any $t\in\mathcal{T}$. We introduce one last lemma before moving to the pricing of European call options.
 
 \begin{lemma}
     \label{lem:risk_free}
     Suppose that in an arbitrage-free market there exists a self-financing portfolio $h(t)$ such that $dV^h(t) = k V^h(t) dt$, where $k$ is a constant. Then, the return $k$ is equal to the risk-free rate $r$.
 \end{lemma}
 \begin{proof}
-    Assume WLOG $B(0) = 1$. Assume $V^h(0) > 0$ and $k>r$. Other cases are either equivalent or equivalent by reversing the portfolio position.
+    Assume without loss of generality that $B(0) = 1$. Assume $V^h(0) > 0$ and $k>r$. Other cases are either equivalent or equivalent by reversing the portfolio position.
     Let us construct a portfolio $h'(t)$ consisting of one unit of the self-financing portfolio $h(t)$ and $-V^h(0)$ units of the risk-free asset $B(t)$, such that:
     \begin{equation}
         V^{h'}(0) = V^h(0)-V^h(0) = 0
@@ -109,7 +110,7 @@ The Black-Scholes model is a mathematical model for the pricing of european opti
 \end{assumption}
 
 \begin{assumption}
-    \label{ass:gbm}The risky asset follows a geometric Brownian motion, as we untroduced it in Equation~\ref{eq:stock}:
+    \label{ass:gbm}The risky asset follows a geometric Brownian motion, as we introduced it in Equation~\ref{eq:stock}:
     $$
         dS(t) = \mu S(t) dt + \sigma S(t) dW(t)
     $$
@@ -221,10 +222,10 @@ These discrepancies have significant implications. For instance, the assumption 
 Given the widespread use of the Black-Scholes model and its extensions in the financial industry, particularly in the pricing of derivatives, understanding the limitations of its assumptions is crucial. According to \cite{bis}, the notional value of the over-the-counter derivatives market has reached approximately \$730 trillion. This highlights the potential global impact of mispricing and underestimating risks due to unrealistic assumptions.
 
 To address these limitations, alternative models have been proposed that aim to capture more realistic dynamics of asset prices. One promising approach is to model price movements based on the interplay of supply and demand, which is driven by the collective behavior of market participants. This perspective naturally leads to the study of models inspired by statistical physics, where the interactions of many agents are explicitly considered. In the next section, we will introduce key concepts from statistical physics to formalize this approach.
-
+\newpage
 
 \section{Statistical physics: the Ising model}
-In this section, we introduce the Ising model as an example of model driven by the interaction of many agents (spins). The Ising model is a simple mathematical model of ferromagnetic materials. In its description, we will mostly follow the notation and tools presented in \cite{mezard_book} and from professor Mézard's lecture notes. The model consists of Ising spins (that is, spins which can take binary values) on a d-dimensional cubic lattice (see figure \ref{fig:ising_model}). Mathematically, given a cubic lattice $\mathbb{L}=\{1,\dots,L\}^n$, we define an an Ising spin $\sigma_i\in\{-1,1\}$ for each site $i\in\mathbb{L}$. Then, we can have any configuration $\underline{\sigma} = (\sigma_1,\dots,\sigma_n) \in \mathcal{X}_N=\{+1,-1\}^{\mathbb{L}}$.
+In this section, we introduce the Ising model as an example of model driven by the interaction of many agents (spins). The Ising model is a simple mathematical model of ferromagnetic materials. In its description, we will mostly follow the notation and tools presented in \cite{mezard_book} and from professor Mézard's lecture notes. The model consists of Ising spins (that is, spins which can take binary values) on a $n$-dimensional cubic lattice (see figure \ref{fig:ising_model}). Mathematically, given a cubic lattice $\mathbb{L}=\{1,\dots,L\}^n$, we define an Ising spin $\sigma_i\in\{-1,1\}$ for each site $i\in\mathbb{L}$. Then, we can have any configuration $\underline{\sigma} = (\sigma_1,\dots,\sigma_N) \in \mathcal{X}_N=\{+1,-1\}^{\mathbb{L}}$.
 
 \begin{figure}[h]
     \centering
@@ -268,7 +269,7 @@ Since each spin is connected to its nearest neighbors, we can write:
 \begin{equation}
     Z =  \sum_{\underline{\sigma}\in\mathcal{X}_N}e^{\beta\sum_n\sigma_n\sigma_{n+1}}
 \end{equation}
-Let us define $\tau_n = \sigma_{n-1}\sigma_{n}$. Then, $\sigma_n = \tau_n\tau_{n-1}\dots\tau_2\sigma_1$, which means that we can write:
+Let us define $\tau_n = \sigma_{n-1}\sigma_{n}$. Then, since $\sigma_n^2=1$, we have $\sigma_n = \sigma_1 \prod_{k=2}^n \tau_k$, which means that we can write:
 \begin{equation}
     \begin{gathered}
     Z =  \sum_{\sigma_1\in\{-1,1\}}\sum_{\tau_2,\dots\tau_n}e^{\beta\sum_n\tau_n}
@@ -358,11 +359,11 @@ The scaling factor $\frac{1}{N}$ is introduced to have a non-trivial free energy
 \end{equation}
 Now, we can introduce the notation:
 \begin{equation}
-m(\underline{\sigma}) = \frac{1}{N}\sum_{i}\sigma_i
+m(\underline{\sigma}) = \frac{1}{N}\sum_{i=1}^N \sigma_i
 \end{equation}
 Then, we can rewrite the hamiltonian as:
 \begin{equation}
-    H(\underline{\sigma}) = \frac{1}{2} J N m^2(\underline{\sigma}) + B N m(\underline{\sigma}) - \frac{1}{2}\beta J
+    H(\underline{\sigma}) = \frac{1}{2} J N m^2(\underline{\sigma}) + B N m(\underline{\sigma}) - \frac{1}{2} J
 \end{equation}
 And the partition function becomes:
 \begin{equation}
@@ -398,12 +399,12 @@ Now, we recall the definition of the Shannon entropy:
     The Shannon entropy measures the amount of uncertainty or information in the distribution.
 \end{definition}
 
-And we notice that $S(m)$ is the Shannon entropy of a Bernoulli distribution (binary random variable) with probability $p = \frac{1+m}{2}$ and $q = \frac{1-m}{2}$.
+We notice that $S(m)$ is the Shannon entropy of a Bernoulli distribution (binary random variable) with probability $p = \frac{1+m}{2}$ and $q = \frac{1-m}{2}$.
 
 Now, in the large $N$ limit, we notice the following:
 \begin{itemize}
     \item The increments of $m$ become infinitesimal, allowing us to treat the sum as an integral.
-    \item We can use the stirling approximation for the factorials, allowing us to subtitute $\frac{1}{N}\log\mathcal{N}(m)$ with $S(m)$.
+    \item We can use the Stirling approximation for the factorials, allowing us to substitute $\frac{1}{N}\log\mathcal{N}(m)$ with $S(m)$.
     \item We can neglect the term $-\frac{1}{2}\beta J$ in the exponent, as it is $o(N)$.
 \end{itemize}
 Then, we can rewrite the partition function as:
@@ -421,7 +422,7 @@ Then, we can rewrite the partition function as:
     \label{fig:curie_weiss_phi_B0}
 \end{figure}
 
-Using the laplace approximation, we see that the integral is dominated by the maximum of $\phi(m)$, which we will call $m_0$.
+Using the Laplace approximation, we see that the integral is dominated by the maximum of $\phi(m)$, which we will call $m_0$.
 
 \begin{equation}
     \begin{gathered}
@@ -435,7 +436,7 @@ Thus, we have found the mean-field equation for the Curie-Weiss model:
     \label{eq:curie_weiss_self_consistent}
     m = \tanh(\beta J m + \beta B)
 \end{equation}
-This equation is similar to the one we found for the Ising model in Equation~\ref{eq:ising}, however, this time we have a phase transition. In Figure~\ref{fig:curie_weiss_equation} we can see that, for different value of $\beta$, we can have one or three solutions to the equation. In the case of $B=0$, we can have one solution for $\beta < \beta_c$ and three solutions for $\beta > \beta_c$. The critical value of $\beta$ is given by:
+This equation is similar to the one we found for the Ising model in Equation~\ref{eq:ising}, however, this time we have a phase transition. In Figure~\ref{fig:curie_weiss_equation} we can see that, for different values of $\beta$, we can have one or three solutions to the equation. In the case of $B=0$, we can have one solution for $\beta < \beta_c$ and three solutions for $\beta > \beta_c$. The critical value of $\beta$ is given by:
 \begin{equation}
     \beta_c = \frac{1}{J}
 \end{equation}
